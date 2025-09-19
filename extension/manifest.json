@@ -1,0 +1,40 @@
+{
+  "name": "SSW Reborn",
+  "description": "Change SSW css",
+  "version": "1.0",
+  "content_scripts": [
+    {
+      "matches": [
+        "https://sistema.ssw.inf.br/bin/*"
+      ],
+      "all_frames": true,
+      "js": [
+        "ssw-reborn.js"
+      ],
+      "run_at": "document_start"
+    }
+  ],
+  "manifest_version": 3,
+  "background": {
+    "service_worker": "background.js"
+  },
+  "permissions": [
+    "storage",
+    "activeTab",
+    "scripting",
+    "tabs"
+  ],
+  "host_permissions": [
+    "<all_urls>",
+    "file:///*"
+  ],
+  "incognito": "split",
+  "action": {
+    "default_popup": "index.html"
+  },
+  "icons": {
+    "16": "icons/ssw-reborn-16.png",
+    "48": "icons/ssw-reborn-48.png",
+    "128": "icons/ssw-reborn-128.png"
+  }
+}
