@@ -71,7 +71,7 @@ function loginPage() {
       button.style.background = "#6973ffff";
 
       button.onmouseover = () => {
-        button.style.background = "#5560ffff";
+        button.style.background = "#2d3bfcff";
         button.style.boxShadow = "0 8px 10px #0000001a";
       };
       button.onmouseout = () => {
@@ -91,6 +91,22 @@ function loginPage() {
         button.style.boxShadow = "none";
       };
     }
+
+    const oldStyle = document.getElementById("loginStyle");
+    if (oldStyle) {
+      oldStyle.remove();
+    }
+
+    const style = document.createElement('style');
+    style.id = "loginStyle"
+    style.textContent =
+      `
+    .imglnk:active, .imglnk:hover, .imglnk:focus  {
+      color: #ff7c7cff !important;
+    }
+
+  `;
+    document.head.appendChild(style);
 
   });
 
