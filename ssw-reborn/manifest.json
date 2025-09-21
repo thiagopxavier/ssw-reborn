@@ -5,7 +5,7 @@
   "content_scripts": [
     {
       "matches": [
-        "https://sistema.ssw.inf.br/bin/*"
+        "https://*.sistema.ssw.inf.br/bin/*"
       ],
       "all_frames": true,
       "js": [
