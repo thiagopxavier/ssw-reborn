@@ -148,7 +148,7 @@ function loginPage() {
 
 function mainMenu() {
 
-  const enterpriseTagInput = document.querySelector("input#\\32");
+  const enterpriseTagInput = document.querySelector("input:not([type='checkbox'])#\\32");
 
 
   if (enterpriseTagInput) {
@@ -197,14 +197,16 @@ function mainMenu() {
   const optionLabel = document.querySelector("#frm > div:nth-child(5)");
   optionLabel && (optionLabel.style.left = "150px");
 
-  const optionSearchBar = document.getElementById("3");
+  const optionSearchBar = document.querySelector("input:not([type='checkbox'])#\\33");
+
   if (optionSearchBar) {
     optionSearchBar.style.width = "45px";
     optionSearchBar.style.left = "195px";
 
   }
 
-  const searchBar = document.getElementById("4");
+  const searchBar = document.querySelector("input:not([type='checkbox'])#\\34");
+
   if (searchBar) {
     document.getElementById("4").style.left = "250px";
     document.getElementById("5").style.left = "620px";
@@ -284,6 +286,19 @@ function mainMenu() {
   font-size: 20px !important;
   }
 
+  .motd {
+    background: #008800;
+    font-size: 12 !important;
+    color: #ffffff;
+    border-top: 2px solid #ffffffff;
+  }
+
+  .motd:active, .motd:hover, .motd:focus {
+    background: #beffc3
+    color: #008800;
+  }
+
+
   `;
   document.head.appendChild(style);
 
@@ -337,6 +352,11 @@ function insertStyles() {
     font-size: 11px !important;
   }
 
+  b {
+    font-size: 12px !important;
+  }
+
+
   span.titulo{
     font-size:18px;
   }
@@ -387,17 +407,6 @@ function verifySystem(system, header) {
   style.id = "systemStyle";
   style.textContent =
     `
-
-  .motd {
-    background: #008800;
-    color: #ffffff;
-    border-top: 1px solid #ffffffff;
-  }
-
-  .motd:active, .motd:hover, .motd:focus {
-    background: #beffc3
-    color: #008800;
-  }
 
   .mainMenuLevel1, .mainMenuLevel2, .mainMenuLevel3 {
     font-size: 13px !important;
