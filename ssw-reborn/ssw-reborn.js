@@ -280,6 +280,10 @@ function mainMenu() {
     width: 200px;
   }
 
+  .titulo {
+  font-size: 20px !important;
+  }
+
   `;
   document.head.appendChild(style);
 
@@ -347,11 +351,11 @@ function insertStyles() {
 
 //need changes to reload after change system
 function verifySystem(system, header) {
-  const TSA_COLOR = '#fd2626ff';
+  const TSA_COLOR = '#C4170C';
   const TSA_COLOR_ACTIVE = '#ffbebeff';
   const MID_COLOR = '#5560ffff';
   const MID_COLOR_ACTIVE = '#bec2ffff';
-  const DEFAULT_COLOR = '#757575ff';
+  const DEFAULT_COLOR = '#333333';
   const DEFAULT_COLOR_ACTIVE = '#ddddddff'
 
   let systemColor;
@@ -385,12 +389,18 @@ function verifySystem(system, header) {
     `
 
   .motd {
-    background: #c9c9c952;
+    background: #008800;
+    color: #ffffff;
     border-top: 1px solid #ffffffff;
   }
 
+  .motd:active, .motd:hover, .motd:focus {
+    background: #beffc3
+    color: #008800;
+  }
+
   .mainMenuLevel1, .mainMenuLevel2, .mainMenuLevel3 {
-    font-size: 13px;
+    font-size: 13px !important;
     background: ${systemColor};
     border-radius: 0 0 0 8px;
     font-weight: bold;
@@ -402,12 +412,12 @@ function verifySystem(system, header) {
   a.mainMenuLevel3:active, a.mainMenuLevel3:hover, a.mainMenuLevel3:focus {
     color:${systemColor};
     background: ${systemColorActive};
-    font-size: 13px;
+    font-size: 13px !important;
 }
   .mainMenuSelected1, .mainMenuSelected2, .mainMenuSelected3 {
     color:${systemColor};
     background: ${systemColorActive};
-    font-size: 13px;
+    font-size: 13px !important;
     font-weight: bold;
     height: 20px;
   }
