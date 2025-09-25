@@ -286,18 +286,44 @@ function mainMenu() {
   font-size: 20px !important;
   }
 
+  .motr:hover,.motr:focus, .motr:active {
+  background: #beffc3;
+  color: #006400;
+}
+
+  .motr {
+    height: 16px;
+    line-height: 16px;
+    vertical-align: middle;
+    background: #006400;
+    color: #ffffffff;
+  }
+
+  tr.motr td {
+    color: inherit;
+    padding: 0px 8px;
+  }
+
   .motd {
-    background: #008800;
+    text-overflow: ellipsis;
     font-size: 12 !important;
-    color: #ffffff;
-    border-top: 2px solid #ffffffff;
+    white-space: nowrap;
+    overflow: hidden;
   }
-
-  .motd:active, .motd:hover, .motd:focus {
-    background: #beffc3
-    color: #008800;
+  td.motd:nth-child(1) {
+    width: 300px;
   }
-
+  td.motd:nth-child(2) {
+    text-align: end;
+    padding: 0;
+  }
+  td.motd:nth-child(3) {
+    width: 8px;
+    text-align: end;
+  }
+  td.motd:nth-child(3):hover,td.motd:nth-child(3):focus,td.motd:nth-child(3):active {
+    color: red;
+  }
 
   `;
   document.head.appendChild(style);
