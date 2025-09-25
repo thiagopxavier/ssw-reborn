@@ -266,6 +266,9 @@ function mainMenu() {
     errorPanel.style.width = '90vw';
   }
 
+  const myOptionsTable = document.querySelector('#frm > div:nth-child(17) > a:nth-child(1)');
+
+  if (myOptionsTable) myOptionsTable.style.background = '#008800'
 
 
   const oldStyle = document.getElementById("mainMenuStyle");
@@ -288,14 +291,14 @@ function mainMenu() {
 
   .motr:hover,.motr:focus, .motr:active {
   background: #beffc3;
-  color: #006400;
+  color: #008800;
 }
 
   .motr {
     height: 16px;
     line-height: 16px;
     vertical-align: middle;
-    background: #006400;
+    background: #008800;
     color: #ffffffff;
   }
 
