@@ -312,9 +312,11 @@ function mainMenu() {
     font-size: 12 !important;
     white-space: nowrap;
     overflow: hidden;
+    border-top: 1px solid #c9c9c9ff;
   }
   td.motd:nth-child(1) {
     width: 300px;
+    border-radius: 0 0 0 5px;
   }
   td.motd:nth-child(2) {
     text-align: end;
