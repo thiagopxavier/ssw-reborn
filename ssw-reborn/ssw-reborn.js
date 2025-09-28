@@ -1,24 +1,27 @@
 function loginPage() {
   const body = document.body.style;
-  body.display = "flex";
-  body.justifyContent = "center";
-  body.alignItems = "center";
-  body.background = "none";
-
-  setTimeout(() => {
-    body.backgroundImage = "none";
+  if (body) {
+    body.display = "flex";
+    body.justifyContent = "center";
+    body.alignItems = "center";
     body.background = "none";
-  }, 100);
+
+    setTimeout(() => {
+      body.backgroundImage = "none";
+      body.background = "none";
+    }, 100);
+  }
 
   const formLogin = document.querySelector('#frm');
-  formLogin.style.background = "#fffffff2";
-  formLogin.style.padding = "30px";
-  formLogin.style.borderRadius = "12px";
-  formLogin.style.boxShadow = "0 8px 25px #0000004d";
-  formLogin.style.width = "250px";
-  formLogin.style.display = "flex";
-  formLogin.style.flexDirection = "column";
-
+  if (formLogin) {
+    formLogin.style.background = "#fffffff2";
+    formLogin.style.padding = "30px";
+    formLogin.style.borderRadius = "12px";
+    formLogin.style.boxShadow = "0 8px 25px #0000004d";
+    formLogin.style.width = "250px";
+    formLogin.style.display = "flex";
+    formLogin.style.flexDirection = "column";
+  }
 
   document.querySelectorAll('#frm > :is(div, input, a, label)').forEach(item => {
     item.style.position = "static";
@@ -51,64 +54,56 @@ function loginPage() {
   });
 
 
+  const oldStyle = document.getElementById("loginStyle");
+  if (oldStyle) {
+    oldStyle.remove();
+  }
+
   const loginButton = document.querySelectorAll("a.imglnk");
 
-  loginButton.forEach(button => {
-    button.style.display = "block";
-    button.style.padding = "12px";
-    button.style.border = "none";
-    button.style.color = "#ffffff"
-    button.style.margin = "10px auto 0 0 ";
-    button.style.textAlign = "center";
-    button.style.borderRadius = "6px";
-    button.style.fontWeight = "bold";
-    button.style.fontSize = "16px";
-    button.style.textDecoration = "none";
-    button.style.width = "90%";
-    button.style.transition = "background 0.3s";
+  if (loginButton) {
+    loginButton.forEach(button => {
+      button.style.display = "block";
+      button.style.padding = "12px";
+      button.style.border = "none";
+      button.style.color = "#ffffff"
+      button.style.margin = "10px auto 0 0 ";
+      button.style.textAlign = "center";
+      button.style.borderRadius = "6px";
+      button.style.fontWeight = "bold";
+      button.style.fontSize = "16px";
+      button.style.textDecoration = "none";
+      button.style.width = "90%";
+      button.style.transition = "background 0.3s";
 
-    if (button.textContent.includes("►")) {
-      button.style.background = "#6973ffff";
-
-      button.onmouseover = () => {
-        button.style.background = "#2d3bfcff";
-        button.style.boxShadow = "0 8px 10px #0000001a";
-      };
-      button.onmouseout = () => {
+      if (button.textContent.includes("►")) {
         button.style.background = "#6973ffff";
-        button.style.boxShadow = "none";
-      };
-    }
 
-    else if (button.textContent.includes("×")) {
-      button.style.background = "#ff5555ff";
-      button.onmouseover = () => {
-        button.style.background = "#ff0000ff";
-        button.style.boxShadow = "0 8px 10px #0000001a";
-      };
-      button.onmouseout = () => {
+        button.onmouseover = () => {
+          button.style.background = "#2d3bfcff";
+          button.style.boxShadow = "0 8px 10px #0000001a";
+        };
+        button.onmouseout = () => {
+          button.style.background = "#6973ffff";
+          button.style.boxShadow = "none";
+        };
+      }
+
+      else if (button.textContent.includes("×")) {
         button.style.background = "#ff5555ff";
-        button.style.boxShadow = "none";
-      };
-    }
+        button.onmouseover = () => {
+          button.style.background = "#ff0000ff";
+          button.style.boxShadow = "0 8px 10px #0000001a";
+        };
+        button.onmouseout = () => {
+          button.style.background = "#ff5555ff";
+          button.style.boxShadow = "none";
+        };
+      }
 
-    const oldStyle = document.getElementById("loginStyle");
-    if (oldStyle) {
-      oldStyle.remove();
-    }
 
-    const style = document.createElement('style');
-    style.id = "loginStyle"
-    style.textContent =
-      `
-    .imglnk:active, .imglnk:hover, .imglnk:focus  {
-      color: #ff7c7cff !important;
-    }
-
-  `;
-    document.head.appendChild(style);
-
-  });
+    });
+  }
 
   document.querySelectorAll("a.baselnk").forEach(link => {
     link.style.top = "";
@@ -125,8 +120,10 @@ function loginPage() {
   });
 
   const titleHeader = document.querySelector("#tituloprog > span");
-  titleHeader.style.display = "block";
-  titleHeader.style.fontSize = "22px";
+  if (titleHeader) {
+    titleHeader.style.display = "block";
+    titleHeader.style.fontSize = "22px";
+  }
 
   document.getElementById("mainscript").style.display = "none";
 
@@ -144,13 +141,22 @@ function loginPage() {
       });
     });
   }
+
+  const style = document.createElement('style');
+  style.id = "loginStyle"
+  style.textContent =
+    `
+    .imglnk:active, .imglnk:hover, .imglnk:focus  {
+      color: #ff7c7cff !important;
+    }
+
+  `;
+  document.head.appendChild(style);
 };
 
 function mainMenu() {
 
   const enterpriseTagInput = document.querySelector("input:not([type='checkbox'])#\\32");
-
-
   if (enterpriseTagInput) {
     enterpriseTagInput.addEventListener("input", (_event) => {
       headerReset();
@@ -158,7 +164,6 @@ function mainMenu() {
     enterpriseTagInput.style.width = "45px";
     enterpriseTagInput.style.left = "87px";
   }
-
 
   document.getElementById("1").addEventListener("click", () => {
     const oldTag = enterpriseTagInput.value
@@ -191,22 +196,16 @@ function mainMenu() {
 
   document.querySelector("#frm > div:nth-child(3)").style.left = "75px";
 
-
-
-
   const optionLabel = document.querySelector("#frm > div:nth-child(5)");
   optionLabel && (optionLabel.style.left = "150px");
 
   const optionSearchBar = document.querySelector("input:not([type='checkbox'])#\\33");
-
   if (optionSearchBar) {
     optionSearchBar.style.width = "45px";
     optionSearchBar.style.left = "195px";
-
   }
 
   const searchBar = document.querySelector("input:not([type='checkbox'])#\\34");
-
   if (searchBar) {
     document.getElementById("4").style.left = "250px";
     document.getElementById("5").style.left = "620px";
@@ -335,6 +334,7 @@ function mainMenu() {
 
 }
 
+
 function insertStyles() {
   const localNav = document.body
 
@@ -369,6 +369,42 @@ function insertStyles() {
 
   });
 
+  const freteLabel = document.querySelector("#frm > div:nth-child(33)")
+  if (freteLabel && freteLabel.textContent.includes("Frete")) {
+    freteLabel.style.color = "#ff2626ff";
+    freteLabel.style.fontWeight = "bold";
+  }
+
+  const typeMerchLabel = document.querySelector("#lnk_mercadoria")
+  if (typeMerchLabel && typeMerchLabel.textContent.includes("Tipo")) {
+    typeMerchLabel.style.color = "#ff2626ff";
+    typeMerchLabel.style.fontWeight = "bold";
+  }
+
+  const weightLabel = document.querySelector("#frm > div:nth-child(141)")
+  if (weightLabel && weightLabel.textContent.includes("Peso")) {
+    weightLabel.style.color = "#ff2626ff";
+    weightLabel.style.fontWeight = "bold";
+  }
+
+  const volumesLabel = document.querySelector("#frm > div:nth-child(137)")
+  if (volumesLabel && volumesLabel.textContent.includes("volumes")) {
+    volumesLabel.style.color = "#ff2626ff";
+    volumesLabel.style.fontWeight = "bold";
+  }
+
+  const paresLabel = document.querySelector("#lnk_pares")
+  if (paresLabel && paresLabel.textContent.includes("pares")) {
+    paresLabel.style.color = "#ff2626ff";
+    paresLabel.style.fontWeight = "bold";
+  }
+
+  const priceLabel = document.querySelector("#frm > div:nth-child(145)")
+  if (priceLabel && priceLabel.textContent.includes("Valor")) {
+    priceLabel.style.color = "#ff2626ff";
+    priceLabel.style.fontWeight = "bold";
+  }
+
   const oldStyle = document.getElementById("defaultStyle");
   if (oldStyle) {
     oldStyle.remove();
@@ -400,7 +436,6 @@ function insertStyles() {
   document.head.appendChild(style);
 }
 
-//need changes to reload after change system
 function verifySystem(system, header) {
   const TSA_COLOR = '#C4170C';
   const TSA_COLOR_ACTIVE = '#ffbebeff';
@@ -460,9 +495,7 @@ function verifySystem(system, header) {
     font-size: 13px !important;
     font-weight: bold;
     height: 20px;
-  }
-
-    
+  }    
     `;
   document.head.appendChild(style);
 }
@@ -490,12 +523,9 @@ function headerReset() {
 
 
 function cssFunctions() {
-
-
   if (window.location.href.includes("/bin/ssw0422")) {
     loginPage();
     headerReset();
-
 
   } else if (window.location.href.includes("/bin/menu01")) {
     mainMenu();
@@ -504,7 +534,6 @@ function cssFunctions() {
   } else {
     headerReset();
     insertStyles();
-
   }
 }
 
