@@ -369,42 +369,6 @@ function insertStyles() {
 
   });
 
-  const freteLabel = document.querySelector("#frm > div:nth-child(33)")
-  if (freteLabel && freteLabel.textContent.includes("Frete")) {
-    freteLabel.style.color = "#ff2626ff";
-    freteLabel.style.fontWeight = "bold";
-  }
-
-  const typeMerchLabel = document.querySelector("#lnk_mercadoria")
-  if (typeMerchLabel && typeMerchLabel.textContent.includes("Tipo")) {
-    typeMerchLabel.style.color = "#ff2626ff";
-    typeMerchLabel.style.fontWeight = "bold";
-  }
-
-  const weightLabel = document.querySelector("#frm > div:nth-child(141)")
-  if (weightLabel && weightLabel.textContent.includes("Peso")) {
-    weightLabel.style.color = "#ff2626ff";
-    weightLabel.style.fontWeight = "bold";
-  }
-
-  const volumesLabel = document.querySelector("#frm > div:nth-child(137)")
-  if (volumesLabel && volumesLabel.textContent.includes("volumes")) {
-    volumesLabel.style.color = "#ff2626ff";
-    volumesLabel.style.fontWeight = "bold";
-  }
-
-  const paresLabel = document.querySelector("#lnk_pares")
-  if (paresLabel && paresLabel.textContent.includes("pares")) {
-    paresLabel.style.color = "#ff2626ff";
-    paresLabel.style.fontWeight = "bold";
-  }
-
-  const priceLabel = document.querySelector("#frm > div:nth-child(145)")
-  if (priceLabel && priceLabel.textContent.includes("Valor")) {
-    priceLabel.style.color = "#ff2626ff";
-    priceLabel.style.fontWeight = "bold";
-  }
-
   const oldStyle = document.getElementById("defaultStyle");
   if (oldStyle) {
     oldStyle.remove();
@@ -426,7 +390,6 @@ function insertStyles() {
   .cabecalho {
     width: 100vw;
   }
-
 
   span.titulo{
     font-size:18px;
@@ -525,6 +488,35 @@ function headerReset() {
 
 }
 
+function cteTyping() {
+
+  const shippingType = document.querySelector('#\\31 6');
+  const shipperCNPJ = document.querySelector('#id_cli_rem_cnpj');
+  const consigneeCNPJ = document.querySelector('#id_cli_des_cnpj');
+  let payerCNPJ = document.querySelector('#id_cli_pag_cnpj');
+
+
+  if (shippingType) {
+    shippingType.addEventListener("input", (_event) => {
+      if (shippingType.value === '1') {
+        payerCNPJ.value = shipperCNPJ.value
+      }
+      if (shippingType.value === '2') {
+        payerCNPJ.value = consigneeCNPJ.value
+      }
+    });
+  }
+
+  const highlights = document.querySelectorAll("#frm > div:nth-child(33), #frm > div:nth-child(141), #frm > div:nth-child(137), #lnk_pares, #frm > div:nth-child(145), #\\31 6, #id_qtde_vol, #id_peso_real, #id_vlr_mercadoria")
+
+  if (highlights) {
+    highlights.forEach(highlight => {
+      highlight.style.color = "#ff2626ff";
+      highlight.style.fontWeight = "bold";
+    })
+  }
+}
+
 
 function cssFunctions() {
   if (window.location.href.includes("/bin/ssw0422")) {
@@ -535,6 +527,11 @@ function cssFunctions() {
     mainMenu();
     headerReset();
     insertStyles();
+  } else if (window.location.href.includes("/bin/ssw0024")) {
+    headerReset();
+    cteTyping();
+    insertStyles();
+
   } else {
     headerReset();
     insertStyles();
