@@ -423,6 +423,10 @@ function insertStyles() {
     font-size: 12px !important;
   }
 
+  .cabecalho {
+    width: 100vw;
+  }
+
 
   span.titulo{
     font-size:18px;
@@ -511,7 +515,7 @@ function headerReset() {
 
   const header = document.querySelector("div.cabecalho");
   header.style.marginBottom = "10px";
-  header.style.width = "100%";
+  header.style.width = "100vw";
 
   if (enterpriseTag && window.location.href.includes("/bin/menu01")) {
     verifySystem(enterpriseTag.value, header);
@@ -537,6 +541,7 @@ function cssFunctions() {
   }
 }
 
+// The big three force
 window.addEventListener('DOMContentLoaded', () => {
   autoReset();
 });
@@ -544,17 +549,17 @@ window.addEventListener('DOMContentLoaded', () => {
 window.addEventListener('load', () => {
   setTimeout(() => {
     autoReset()
-  }, 1000);
+  }, 5000);
 });
 
 function autoReset() {
   const startTime = Date.now();
-  const maxTime = 5000;
+  const maxTime = 20000;
   const intervalReset = setInterval(() => {
     const header = document.querySelector("div.cabecalho");
     if (header) {
       const headerWidth = getComputedStyle(header).width;
-      if (headerWidth === '1000px') {
+      if (headerWidth !== '100vw') {
         cssFunctions();
         clearInterval(intervalReset);
       }
