@@ -493,8 +493,7 @@ function cteTyping() {
   const shippingType = document.querySelector('#\\31 6');
   const shipperCNPJ = document.querySelector('#id_cli_rem_cnpj');
   const consigneeCNPJ = document.querySelector('#id_cli_des_cnpj');
-  let payerCNPJ = document.querySelector('#id_cli_pag_cnpj');
-
+  const payerCNPJ = document.querySelector('#id_cli_pag_cnpj');
 
   if (shippingType) {
     shippingType.addEventListener("input", (_event) => {
@@ -507,10 +506,15 @@ function cteTyping() {
     });
   }
 
-  const highlights = document.querySelectorAll("#frm > div:nth-child(33), #frm > div:nth-child(141), #frm > div:nth-child(137), #lnk_pares, #frm > div:nth-child(145), #\\31 6, #id_qtde_vol, #id_peso_real, #id_vlr_mercadoria")
+  const boldLabel = document.querySelectorAll('#frm > div:nth-child(33), #frm > div:nth-child(141), #frm > div:nth-child(137), #lnk_pares, #frm > div:nth-child(145)')
+  if (boldLabel) {
+    boldLabel.forEach(b => { b.style.fontWeight = "bold" });
+  }
 
-  if (highlights) {
-    highlights.forEach(highlight => {
+  const highlightsInput = document.querySelectorAll("#\\31 6, #id_qtde_vol, #id_peso_real, #id_vlr_mercadoria,#fld_nome_entrega, #fld_end_entrega, #fld_nro_entrega, #fld_comp_entrega, #fld_cep_entrega, #fld_bairro_entrega, #msgcepc")
+
+  if (highlightsInput) {
+    highlightsInput.forEach(highlight => {
       highlight.style.color = "#ff2626ff";
       highlight.style.fontWeight = "bold";
     })
@@ -520,12 +524,12 @@ function cteTyping() {
 
 function cssFunctions() {
   if (window.location.href.includes("/bin/ssw0422")) {
-    loginPage();
     headerReset();
+    loginPage();
 
   } else if (window.location.href.includes("/bin/menu01")) {
-    mainMenu();
     headerReset();
+    mainMenu();
     insertStyles();
   } else if (window.location.href.includes("/bin/ssw0024")) {
     headerReset();
@@ -564,7 +568,7 @@ function autoReset() {
       cssFunctions();
       clearInterval(intervalReset);
     }
-  }, 100);
+  }, 50);
 }
 
 autoReset();
