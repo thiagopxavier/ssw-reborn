@@ -559,8 +559,7 @@ function autoReset() {
   const intervalReset = setInterval(() => {
     const header = document.querySelector("div.cabecalho");
     if (header) {
-      const headerWidth = getComputedStyle(header).width;
-      if (headerWidth !== '100vw') {
+      if (header.offsetWidth !== window.innerWidth) {
         cssFunctions();
         clearInterval(intervalReset);
       }
