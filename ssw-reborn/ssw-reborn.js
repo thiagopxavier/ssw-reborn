@@ -467,19 +467,53 @@ function verifySystem(system, header) {
     height: 20px;
   }    
 
-  .cabecalho{background:¨${systemColor};background-color:¨${systemColor};}
-  a.menulnk:active, a.menulnk:hover, a.menulnk:focus{color:¨${systemColor};}
-  a.menulnkdestaca:active, a.menulnkdestaca:hover, a.menulnkdestaca:focus{color:¨${systemColor};}
-  .menulnk{background:¨${systemColor};}
-  .menulnkdestaca{background:¨${systemColor};}
-  .texto11{background:¨${systemColor};}
-  .mainMenuLevel1{background:¨${systemColor};}
-  .mainMenuLevel2{background:¨${systemColor};}
-  .mainMenuLevel3{background:¨${systemColor};}
-  a.texto11:active, a.texto11:hover, a.texto11:focus{color:¨${systemColor};}
-  .srtit {background:¨${systemColor};}
-  .srtit2 {background:¨${systemColor};}
-  #scontentbar{background-color:¨${systemColor};}
+.cabecalho {
+  background: ${systemColor} !important;
+  background-color: ${systemColor} !important;
+}
+a.menulnk:active,
+a.menulnk:hover,
+a.menulnk:focus {
+  color: ${systemColor} !important;
+}
+a.menulnkdestaca:active,
+a.menulnkdestaca:hover,
+a.menulnkdestaca:focus {
+  color: ${systemColor} !important;
+}
+.menulnk {
+  background: ${systemColor} !important;
+}
+.menulnkdestaca {
+  background: ${systemColor} !important;
+}
+.texto11 {
+  background: ${systemColor} !important;
+}
+.mainMenuLevel1 {
+  background: ${systemColor} !important;
+}
+.mainMenuLevel2 {
+  background: ${systemColor} !important;
+}
+.mainMenuLevel3 {
+  background: ${systemColor} !important;
+}
+a.texto11:active,
+a.texto11:hover,
+a.texto11:focus {
+  color: ${systemColor} !important;
+}
+.srtit {
+  background: ${systemColor} !important;
+}
+.srtit2 {
+  background: ${systemColor} !important;
+}
+#scontentbar {
+  background-color: ${systemColor} !important;
+}
+
 
     `;
   document.head.appendChild(style);
