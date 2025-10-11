@@ -336,18 +336,6 @@ function mainMenu() {
 
 
 function insertStyles() {
-  const localNav = document.body
-
-  if (localNav) {
-    localNav.querySelectorAll("a").forEach(link => {
-      link.addEventListener("click", () => {
-        setTimeout(() => {
-          autoReset();
-        }, 100);
-      });
-    });
-  }
-
   const Buttons = document.querySelectorAll("a.imglnk");
 
   Buttons.forEach(button => {
@@ -502,8 +490,6 @@ function headerReset() {
   const enterpriseTag = document.querySelector('input#\\32');
 
   domOrUnit.style.bottom = '3px';
-
-  /* document.querySelector("#cablnk > a:nth-child(1)").style.display = "none"; */
   document.querySelector("div#cablnk").style.bottom = "3px";
 
   const header = document.querySelector("div.cabecalho");
@@ -522,26 +508,50 @@ function cteTyping() {
 
   const shippingType = document.querySelector('#\\31 6');
   const shipperCNPJ = document.querySelector('#id_cli_rem_cnpj');
+  const shipperName = document.querySelector('#id_cli_rem_nome')
   const consigneeCNPJ = document.querySelector('#id_cli_des_cnpj');
+  const consigneeName = document.querySelector('#id_cli_des_nome');
   const payerCNPJ = document.querySelector('#id_cli_pag_cnpj');
+  const payerName = document.querySelector('#id_cli_pag_nome');
 
-  if (shippingType) {
-    shippingType.addEventListener("input", (_event) => {
+  function verifyPayer() {
+    if (shippingType) {
+      shippingType.style.fontWeight = "bold";
+      payerCNPJ.style.fontWeight = "bold";
+      shipperCNPJ.style.fontWeight = "bold";
+      shipperName.style.fontWeight = "bold";
+      consigneeCNPJ.style.fontWeight = "bold";
+      consigneeName.style.fontWeight = "bold";
+      payerName.style.fontWeight = "bold";
+      shipperCNPJ.style.color = "#00a67d";
+      shipperName.style.color = "#00a67d";
+      consigneeCNPJ.style.color = "#ff2626ff";
+      consigneeName.style.color = "#ff2626ff";
+
       if (shippingType.value === '1') {
+        shippingType.style.color = "#00a67d";
+        payerCNPJ.style.color = "#00a67d";
+        payerName.style.color = "#00a67d   ";
         payerCNPJ.value = shipperCNPJ.value
       }
       if (shippingType.value === '2') {
+        shippingType.style.color = "#ff2626ff";
+        payerCNPJ.style.color = "#ff2626ff";
+        payerName.style.color = "#ff2626ff";
         payerCNPJ.value = consigneeCNPJ.value
       }
-    });
+    }
+    requestAnimationFrame(verifyPayer);
   }
+  verifyPayer();
+
 
   const boldLabel = document.querySelectorAll('#frm > div:nth-child(33), #frm > div:nth-child(141), #frm > div:nth-child(137), #lnk_pares, #frm > div:nth-child(145)')
   if (boldLabel) {
     boldLabel.forEach(b => { b.style.fontWeight = "bold" });
   }
 
-  const highlightsInput = document.querySelectorAll("#\\31 6, #id_qtde_vol, #id_peso_real, #id_vlr_mercadoria,#fld_nome_entrega, #fld_end_entrega, #fld_nro_entrega, #fld_comp_entrega, #fld_cep_entrega, #fld_bairro_entrega, #msgcepc")
+  const highlightsInput = document.querySelectorAll("#id_qtde_vol, #id_peso_real, #id_vlr_mercadoria,#fld_nome_entrega, #fld_end_entrega, #fld_nro_entrega, #fld_comp_entrega, #fld_cep_entrega, #fld_bairro_entrega, #msgcepc")
 
   if (highlightsInput) {
     highlightsInput.forEach(highlight => {
