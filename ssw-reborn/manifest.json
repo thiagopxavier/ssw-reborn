@@ -1,7 +1,7 @@
 {
   "name": "SSW Reborn",
   "description": "Custom CSS for SSW system",
-  "version": "1.4",
+  "version": "1.5",
   "content_scripts": [
     {
       "matches": [

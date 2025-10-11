@@ -542,32 +542,31 @@ function cssFunctions() {
   }
 }
 
-// The big three force
-window.addEventListener('DOMContentLoaded', () => {
-  autoReset();
-});
-
-window.addEventListener('load', () => {
-  setTimeout(() => {
-    autoReset()
-  }, 5000);
-});
-
 function autoReset() {
   const startTime = Date.now();
   const maxTime = 20000;
-  const intervalReset = setInterval(() => {
+
+  const observer = new MutationObserver(() => {
     const header = document.querySelector("div.cabecalho");
-    if (header) {
-      if (header.offsetWidth !== window.innerWidth) {
-        cssFunctions();
-        clearInterval(intervalReset);
-      }
-    } else if (Date.now() - startTime >= maxTime) {
+    const timeExceeded = Date.now() - startTime >= maxTime;
+
+    if ((header && header.offsetWidth !== window.innerWidth) || timeExceeded) {
       cssFunctions();
-      clearInterval(intervalReset);
+      observer.disconnect();
     }
-  }, 50);
+  });
+  observer.observe(document.body, { childList: true, subtree: true });
+
+  const header = document.querySelector("div.cabecalho");
+  if (header && header.offsetWidth !== window.innerWidth) {
+    cssFunctions();
+    observer.disconnect();
+  }
+
+  setTimeout(() => {
+    cssFunctions();
+    observer.disconnect();
+  }, maxTime);
 }
 
 autoReset();
