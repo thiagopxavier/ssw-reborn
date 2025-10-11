@@ -523,24 +523,30 @@ function cteTyping() {
 
 
 function cssFunctions() {
-  if (window.location.href.includes("/bin/ssw0422")) {
-    headerReset();
-    loginPage();
+  const url = window.location.href;
 
-  } else if (window.location.href.includes("/bin/menu01")) {
-    headerReset();
-    mainMenu();
-    insertStyles();
-  } else if (window.location.href.includes("/bin/ssw0024")) {
-    headerReset();
-    cteTyping();
-    insertStyles();
+  headerReset();
+  switch (true) {
+    case url.includes("/bin/ssw0422"):
+      loginPage();
+      break;
 
-  } else {
-    headerReset();
-    insertStyles();
+    case url.includes("/bin/menu01"):
+      mainMenu();
+      insertStyles();
+      break;
+
+    case url.includes("/bin/ssw0024"):
+      cteTyping();
+      insertStyles();
+      break;
+
+    default:
+      insertStyles();
+      break;
   }
 }
+
 
 function autoReset() {
   const startTime = Date.now();
