@@ -179,20 +179,20 @@ function mainMenu() {
     }, 100);
   });
 
-
-  document.querySelectorAll('#\\32, #\\33, #\\34').forEach(input => {
-    input.style.fontSize = "16px";
-    input.style.height = "20px";
-  });
-
-
-  document.querySelectorAll('#\\31 , #frm > div:nth-child(5),  #\\35   ').forEach(text => {
-    text.style.fontSize = "16px";
-    text.style.width = "auto";
-    text.style.textAlign = "center";
+  const mq = document.querySelector('#mq');
+  if (mq) {
+    document.querySelectorAll('#\\32, #\\33, #\\34').forEach(input => {
+      input.style.fontSize = "16px";
+      input.style.height = "20px";
+    });
 
 
-  });
+    document.querySelectorAll('#\\31 , #frm > div:nth-child(5),  #\\35   ').forEach(text => {
+      text.style.fontSize = "16px";
+      text.style.width = "auto";
+      text.style.textAlign = "center";
+    });
+  }
 
   document.querySelector("#frm > div:nth-child(3)").style.left = "75px";
 
@@ -341,6 +341,7 @@ function insertStyles() {
   if (localNav) {
     localNav.querySelectorAll("a").forEach(link => {
       link.addEventListener("click", () => {
+        console.log('first')
         setTimeout(() => {
           autoReset();
         }, 100);
@@ -403,6 +404,15 @@ function insertStyles() {
   document.head.appendChild(style);
 }
 
+function getStyleColor() {
+  const styleTag = document.querySelector('head > style:nth-child(6)');
+  if (styleTag) {
+    const cssText = styleTag.textContent;
+    const match = cssText.match(/#([0-9a-fA-F]{6}|[0-9a-fA-F]{3})/);
+    return match ? match[0] : null;
+  }
+}
+
 function verifySystem(system, header) {
   const TSA_COLOR = '#C4170C';
   const TSA_COLOR_ACTIVE = '#ffbebeff';
@@ -416,7 +426,15 @@ function verifySystem(system, header) {
 
   systemUpperCase = system.toUpperCase();
 
-  if (systemUpperCase.includes('TSA')) {
+  const color = getStyleColor();
+  console.log(color)
+
+
+  if (color) {
+    systemColor = color;
+    systemColorActive = DEFAULT_COLOR_ACTIVE;
+  }
+  else if (systemUpperCase.includes('TSA')) {
     systemColor = TSA_COLOR;
     systemColorActive = TSA_COLOR_ACTIVE;
     header.style.background = TSA_COLOR;
@@ -463,6 +481,21 @@ function verifySystem(system, header) {
     font-weight: bold;
     height: 20px;
   }    
+
+  .cabecalho{background:¨${systemColor};background-color:¨${systemColor};}
+  a.menulnk:active, a.menulnk:hover, a.menulnk:focus{color:¨${systemColor};}
+  a.menulnkdestaca:active, a.menulnkdestaca:hover, a.menulnkdestaca:focus{color:¨${systemColor};}
+  .menulnk{background:¨${systemColor};}
+  .menulnkdestaca{background:¨${systemColor};}
+  .texto11{background:¨${systemColor};}
+  .mainMenuLevel1{background:¨${systemColor};}
+  .mainMenuLevel2{background:¨${systemColor};}
+  .mainMenuLevel3{background:¨${systemColor};}
+  a.texto11:active, a.texto11:hover, a.texto11:focus{color:¨${systemColor};}
+  .srtit {background:¨${systemColor};}
+  .srtit2 {background:¨${systemColor};}
+  #scontentbar{background-color:¨${systemColor};}
+
     `;
   document.head.appendChild(style);
 }
@@ -473,7 +506,7 @@ function headerReset() {
 
   domOrUnit.style.bottom = '3px';
 
-  document.querySelector("#cablnk > a:nth-child(1)").style.display = "none";
+  /* document.querySelector("#cablnk > a:nth-child(1)").style.display = "none"; */
   document.querySelector("div#cablnk").style.bottom = "3px";
 
   const header = document.querySelector("div.cabecalho");
