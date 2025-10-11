@@ -521,6 +521,29 @@ function cteTyping() {
   }
 }
 
+function priceAgreement() {
+  const highlight = document.querySelectorAll('#tp_frete, #qtde_vol, #vlr_merc, #peso, #freteinicial, #vlr_frete');
+
+  if (highlight) {
+    highlight.forEach(h => {
+      h.style.color = "#ff2626ff";
+      h.style.fontWeight = "bold";
+      h.style.setProperty("font-size", "14px", "important");
+    })
+  }
+  const highlightNames = document.querySelectorAll('#nome_emit, #nome_dest');
+  if (highlightNames) {
+    highlightNames.forEach(h => {
+      h.style.color = "#ff2626ff";
+      h.style.fontWeight = "bold";
+    })
+  }
+
+  const boldLabel = document.querySelectorAll('#frm > div:nth-child(47), #frm > div:nth-child(97),#frm > div:nth-child(95), #frm > div:nth-child(101)')
+
+  if (boldLabel) boldLabel.forEach(b => { b.style.fontWeight = "bold" });
+}
+
 
 function cssFunctions() {
   const url = window.location.href;
@@ -538,6 +561,10 @@ function cssFunctions() {
 
     case url.includes("/bin/ssw0024"):
       cteTyping();
+      insertStyles();
+      break;
+    case url.includes("/bin/ssw1601"):
+      priceAgreement();
       insertStyles();
       break;
 
