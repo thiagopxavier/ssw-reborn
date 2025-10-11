@@ -341,7 +341,6 @@ function insertStyles() {
   if (localNav) {
     localNav.querySelectorAll("a").forEach(link => {
       link.addEventListener("click", () => {
-        console.log('first')
         setTimeout(() => {
           autoReset();
         }, 100);
@@ -427,8 +426,6 @@ function verifySystem(system, header) {
   systemUpperCase = system.toUpperCase();
 
   const color = getStyleColor();
-  console.log(color)
-
 
   if (color) {
     systemColor = color;
@@ -607,32 +604,12 @@ function cssFunctions() {
   }
 }
 
-
 function autoReset() {
-  const startTime = Date.now();
-  const maxTime = 20000;
-
-  const observer = new MutationObserver(() => {
-    const header = document.querySelector("div.cabecalho");
-    const timeExceeded = Date.now() - startTime >= maxTime;
-
-    if ((header && header.offsetWidth !== window.innerWidth) || timeExceeded) {
-      cssFunctions();
-      observer.disconnect();
-    }
-  });
-  observer.observe(document.body, { childList: true, subtree: true });
-
   const header = document.querySelector("div.cabecalho");
-  if (header && header.offsetWidth !== window.innerWidth) {
+  if ((header && header.offsetWidth !== window.innerWidth)) {
     cssFunctions();
-    observer.disconnect();
   }
-
-  setTimeout(() => {
-    cssFunctions();
-    observer.disconnect();
-  }, maxTime);
+  requestAnimationFrame(autoReset);
 }
 
 autoReset();
