@@ -496,15 +496,6 @@ a.menulnkdestaca:focus {
 .texto11 {
   background: ${systemColor} !important;
 }
-.mainMenuLevel1 {
-  background: ${systemColor} !important;
-}
-.mainMenuLevel2 {
-  background: ${systemColor} !important;
-}
-.mainMenuLevel3 {
-  background: ${systemColor} !important;
-}
 a.texto11:active,
 a.texto11:hover,
 a.texto11:focus {
