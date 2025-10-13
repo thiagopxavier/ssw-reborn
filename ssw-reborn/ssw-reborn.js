@@ -186,7 +186,6 @@ function mainMenu() {
       input.style.height = "20px";
     });
 
-
     document.querySelectorAll('#\\31 , #frm > div:nth-child(5),  #\\35   ').forEach(text => {
       text.style.fontSize = "16px";
       text.style.width = "auto";
@@ -194,13 +193,15 @@ function mainMenu() {
     });
   }
 
-  document.querySelector("#frm > div:nth-child(3)").style.left = "75px";
+  const unitLabel = document.querySelector("#frm > div:nth-child(3)")
+
+  unitLabel && (unitLabel.style.left = "75px");
 
   const optionLabel = document.querySelector("#frm > div:nth-child(5)");
-  optionLabel && (optionLabel.style.left = "150px");
+  if (optionLabel && optionLabel.textContent === 'Opção:') (optionLabel.style.left = "150px");
 
   const optionSearchBar = document.querySelector("input:not([type='checkbox'])#\\33");
-  if (optionSearchBar) {
+  if (optionSearchBar && optionSearchBar.maxLength === 3) {
     optionSearchBar.style.width = "45px";
     optionSearchBar.style.left = "195px";
   }
@@ -650,7 +651,7 @@ function cssFunctions() {
 
 function autoReset() {
   const header = document.querySelector("div.cabecalho");
-  if ((header && header.offsetWidth !== window.innerWidth)) {
+  if ((header && header.style.width !== "100vw")) {
     cssFunctions();
   }
   requestAnimationFrame(autoReset);
