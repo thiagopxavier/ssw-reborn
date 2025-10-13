@@ -246,6 +246,11 @@ function mainMenu() {
     avisoIframe.style.right = "2vw";
   }
 
+  const versionWebColorLabel = document.querySelector('#frm > div:nth-child(4)')
+  if (versionWebColorLabel && versionWebColorLabel.textContent.includes('Versão')) {
+    versionWebColorLabel.style.width = "90px"
+  }
+
   document.querySelectorAll('#frm > div:nth-child(15), #frm > div:nth-child(16)').forEach(divFooter => {
     divFooter.style.width = "90vw";
   });
