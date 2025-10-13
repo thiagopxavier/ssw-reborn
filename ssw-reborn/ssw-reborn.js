@@ -398,7 +398,7 @@ function insertStyles() {
 }
 
 function getStyleColor() {
-  const styleTag = document.querySelector('head > style:nth-child(6)');
+  const styleTag = document.querySelector('head > style:nth-of-type(1):not([id])');
   if (styleTag) {
     const cssText = styleTag.textContent;
     const match = cssText.match(/#([0-9a-fA-F]{6}|[0-9a-fA-F]{3})/);
@@ -422,6 +422,7 @@ function verifySystem(system, header) {
   const color = getStyleColor();
 
   if (color) {
+    console.log(color)
     systemColor = color;
     systemColorActive = DEFAULT_COLOR_ACTIVE;
   }
