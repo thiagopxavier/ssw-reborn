@@ -546,31 +546,51 @@ function cteTyping() {
   const payerCNPJ = document.querySelector('#id_cli_pag_cnpj');
   const payerName = document.querySelector('#id_cli_pag_nome');
 
-  function verifyPayer() {
-    if (shippingType) {
-      shippingType.style.fontWeight = "bold";
-      payerCNPJ.style.fontWeight = "bold";
-      shipperCNPJ.style.fontWeight = "bold";
-      shipperName.style.fontWeight = "bold";
-      consigneeCNPJ.style.fontWeight = "bold";
-      consigneeName.style.fontWeight = "bold";
-      payerName.style.fontWeight = "bold";
-      shipperCNPJ.style.color = "#00a67d";
-      shipperName.style.color = "#00a67d";
-      consigneeCNPJ.style.color = "#ff2626ff";
-      consigneeName.style.color = "#ff2626ff";
 
+  if (shippingType) shippingType.style.fontWeight = "bold";
+  if (payerCNPJ) payerCNPJ.style.fontWeight = "bold";
+  if (payerName) payerName.style.fontWeight = "bold";
+  if (shipperCNPJ) {
+    shipperCNPJ.style.fontWeight = "bold";
+    shipperCNPJ.style.color = "#00a67d";
+  }
+  if (shipperName) {
+    shipperName.style.fontWeight = "bold";
+    shipperName.style.color = "#00a67d";
+  }
+  if (consigneeCNPJ) {
+    consigneeCNPJ.style.fontWeight = "bold";
+    consigneeCNPJ.style.color = "#ff2626ff";
+  }
+  if (consigneeName) {
+    consigneeName.style.fontWeight = "bold";
+    consigneeName.style.color = "#ff2626ff";
+  }
+  if (shippingType) {
+    shippingType.addEventListener("input", (_event) => {
       if (shippingType.value === '1') {
-        shippingType.style.color = "#00a67d";
-        payerCNPJ.style.color = "#00a67d";
-        payerName.style.color = "#00a67d   ";
         payerCNPJ.value = shipperCNPJ.value
       }
       if (shippingType.value === '2') {
-        shippingType.style.color = "#ff2626ff";
-        payerCNPJ.style.color = "#ff2626ff";
-        payerName.style.color = "#ff2626ff";
         payerCNPJ.value = consigneeCNPJ.value
+      }
+    });
+  }
+
+  function verifyPayer() {
+    if (shippingType && payerCNPJ && shipperCNPJ && consigneeCNPJ) {
+      if (payerCNPJ.value === shipperCNPJ.value) {
+        shippingType && (shippingType.style.color = "#00a67d");
+        payerCNPJ && (payerCNPJ.style.color = "#00a67d");
+        payerName && (payerName.style.color = "#00a67d");
+      } else if (payerCNPJ.value === consigneeCNPJ.value) {
+        shippingType && (shippingType.style.color = "#ff2626ff");
+        payerCNPJ && (payerCNPJ.style.color = "#ff2626ff");
+        payerName && (payerName.style.color = "#ff2626ff");
+      } else {
+        shippingType && (shippingType.style.color = "#a6a300ff");
+        payerCNPJ && (payerCNPJ.style.color = "#a6a300ff");
+        payerName && (payerName.style.color = "#a6a300ff");
       }
     }
     requestAnimationFrame(verifyPayer);
