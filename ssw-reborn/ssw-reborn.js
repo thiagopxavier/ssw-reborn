@@ -545,6 +545,7 @@ function cteTyping() {
   const consigneeName = document.querySelector('#id_cli_des_nome');
   const payerCNPJ = document.querySelector('#id_cli_pag_cnpj');
   const payerName = document.querySelector('#id_cli_pag_nome');
+  const fromSP = document.querySelector('#msgcadcepr');
 
 
   if (shippingType) shippingType.style.fontWeight = "bold";
@@ -566,16 +567,30 @@ function cteTyping() {
     consigneeName.style.fontWeight = "bold";
     consigneeName.style.color = "#ff2626ff";
   }
-  if (shippingType) {
-    shippingType.addEventListener("input", (_event) => {
-      if (shippingType.value === '1') {
-        payerCNPJ.value = shipperCNPJ.value
-      }
-      if (shippingType.value === '2') {
-        payerCNPJ.value = consigneeCNPJ.value
-      }
-    });
+
+  function verifyWeight() {
+    const weight = document.querySelector("#id_peso_real")
+
+    if (weight && parseFloat(weight.value.replace(',', '.')) < 1) {
+      weight.value = '1,000'
+    }
+    requestAnimationFrame(verifyWeight);
   }
+  verifyWeight()
+
+  function verifyState() {
+    if (fromSP) {
+      if (fromSP.value.includes('/ SP') || fromSP.value === '') {
+        fromSP.style.background = ""
+        fromSP.style.color = "";
+      } else {
+        fromSP.style.background = "red";
+        fromSP.style.color = "white";
+      }
+    }
+    requestAnimationFrame(verifyState);
+  }
+  verifyState();
 
   function verifyPayer() {
     if (shippingType && payerCNPJ && shipperCNPJ && consigneeCNPJ) {
@@ -592,11 +607,35 @@ function cteTyping() {
         payerCNPJ && (payerCNPJ.style.color = "#a6a300ff");
         payerName && (payerName.style.color = "#a6a300ff");
       }
+      if (shippingType) {
+        shippingType.addEventListener("input", (_event) => {
+          if (shippingType.value === '1') {
+            payerCNPJ.value = shipperCNPJ.value
+          }
+          if (shippingType.value === '2') {
+            payerCNPJ.value = consigneeCNPJ.value
+          }
+        });
+      }
+
     }
     requestAnimationFrame(verifyPayer);
   }
   verifyPayer();
 
+  if (consigneeName) {
+    consigneeName.addEventListener("click", () => {
+      shippingType.value = '2'
+      payerCNPJ.value = consigneeCNPJ.value
+    });
+  }
+
+  if (shipperName) {
+    shipperName.addEventListener("click", () => {
+      shippingType.value = '1'
+      payerCNPJ.value = shipperCNPJ.value
+    });
+  }
 
   const boldLabel = document.querySelectorAll('#frm > div:nth-child(33), #frm > div:nth-child(141), #frm > div:nth-child(137), #lnk_pares, #frm > div:nth-child(145)')
   if (boldLabel) {
@@ -611,6 +650,20 @@ function cteTyping() {
       highlight.style.fontWeight = "bold";
     })
   }
+}
+
+function cteApproval() {
+  const approvalWaitlist = document.querySelector('#\\36 ');
+  const refreshButton = document.querySelector('#\\31 ');
+
+  const refresh = setInterval(() => {
+    if (refreshButton.textContent.includes("Atualizar") && approvalWaitlist && approvalWaitlist.textContent) {
+      clearInterval(refresh);
+      refreshButton && refreshButton.click();
+    } else {
+      clearInterval(refresh);
+    }
+  }, 2000);
 }
 
 function priceAgreement() {
@@ -655,8 +708,14 @@ function cssFunctions() {
       cteTyping();
       insertStyles();
       break;
+
     case url.includes("/bin/ssw1601"):
       priceAgreement();
+      insertStyles();
+      break;
+
+    case url.includes("/bin/ssw0767"):
+      cteApproval();
       insertStyles();
       break;
 
