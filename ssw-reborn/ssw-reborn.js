@@ -571,8 +571,9 @@ function cteTyping() {
   function verifyWeight() {
     const weight = document.querySelector("#id_peso_real")
 
-    if (weight && parseFloat(weight.value.replace(',', '.')) < 1) {
+    if (weight && parseFloat(weight.value.replace(',', '.')) < 1 && parseFloat(weight.value.replace(',', '.')) != 0) {
       weight.value = '1,000'
+      weight.textContent = '1,000'
     }
     requestAnimationFrame(verifyWeight);
   }
