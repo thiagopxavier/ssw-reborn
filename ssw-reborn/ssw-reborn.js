@@ -535,12 +535,28 @@ function headerReset() {
 function cteTyping() {
 
   const shippingType = document.querySelector('#\\31 6');
+
   const shipperCNPJ = document.querySelector('#id_cli_rem_cnpj');
-  const shipperName = document.querySelector('#id_cli_rem_nome')
+  const shipperName = document.querySelector('#id_cli_rem_nome');
+  const shipperAdress = document.querySelector('#id_cli_rem_end');
+  const shipperAdressNumber = document.querySelector('#id_cli_rem_num');
+  const shipperAdressCode = document.querySelector('#id_cli_rem_cep');
+  const shipperCountry = document.querySelector('#msgcadcepr');
+
   const consigneeCNPJ = document.querySelector('#id_cli_des_cnpj');
   const consigneeName = document.querySelector('#id_cli_des_nome');
+  const consigneeAdress = document.querySelector('#id_cli_des_end');
+  const consigneeAdressNumber = document.querySelector('#id_cli_des_num');
+  const consigneeAdressCode = document.querySelector('#id_cli_des_cep');
+  const consigneeCountry = document.querySelector('#msgcadcepd');
+
   const payerCNPJ = document.querySelector('#id_cli_pag_cnpj');
   const payerName = document.querySelector('#id_cli_pag_nome');
+  const payerAdress = document.querySelector('#id_cli_pag_end');
+  const payerAdressNumber = document.querySelector('#id_cli_pag_num');
+  const payerAdressCode = document.querySelector('#id_cli_pag_cep');
+  const payerCountry = document.querySelector('#msgcadcepp');
+
   const fromSP = document.querySelector('#msgcadcepr');
   const typingTitle = document.querySelector("#tituloprog > span")
 
@@ -618,6 +634,24 @@ function cteTyping() {
   }
   verifyState();
 
+  function changeToConsignee() {
+    payerCNPJ.value = consigneeCNPJ.value
+    payerName.value = consigneeName.value
+    payerAdress.value = consigneeAdress.value
+    payerAdressNumber.value = consigneeAdressNumber.value
+    payerAdressCode.value = consigneeAdressCode.value
+    payerCountry.value = consigneeCountry.value
+  }
+
+  function changeToShipper() {
+    payerCNPJ.value = shipperCNPJ.value
+    payerName.value = shipperName.value
+    payerAdress.value = shipperAdress.value
+    payerAdressNumber.value = shipperAdressNumber.value
+    payerAdressCode.value = shipperAdressCode.value
+    payerCountry.value = shipperCountry.value
+  }
+
   function verifyPayer() {
     if (shippingType && payerCNPJ && shipperCNPJ && consigneeCNPJ) {
       if (payerCNPJ.value === shipperCNPJ.value) {
@@ -636,30 +670,45 @@ function cteTyping() {
       if (shippingType) {
         shippingType.addEventListener("input", (_event) => {
           if (shippingType.value === '1') {
-            payerCNPJ.value = shipperCNPJ.value
+            changeToShipper();
           }
           if (shippingType.value === '2') {
-            payerCNPJ.value = consigneeCNPJ.value
+            changeToConsignee();
           }
         });
       }
-
     }
     requestAnimationFrame(verifyPayer);
   }
   verifyPayer();
 
+  const shippingTypeLabel = document.querySelector('#frm > div:nth-child(33)');
+  if (shippingTypeLabel && shippingType && payerCNPJ && shipperCNPJ && consigneeCNPJ) {
+    if (payerCNPJ.value === shipperCNPJ.value || payerCNPJ.value === consigneeCNPJ.value) {
+      shippingTypeLabel.addEventListener("click", () => {
+        if (shippingType.value === '1') {
+          shippingType.value = "2"
+          changeToConsignee();
+        }
+        else if (shippingType.value === '2') {
+          shippingType.value = "1"
+          changeToShipper();
+        }
+      });
+    }
+  }
+
   if (consigneeName) {
     consigneeName.addEventListener("click", () => {
       shippingType.value = '2'
-      payerCNPJ.value = consigneeCNPJ.value
+      changeToConsignee();
     });
   }
 
   if (shipperName) {
     shipperName.addEventListener("click", () => {
       shippingType.value = '1'
-      payerCNPJ.value = shipperCNPJ.value
+      changeToShipper();
     });
   }
 
