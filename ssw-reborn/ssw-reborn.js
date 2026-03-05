@@ -381,10 +381,6 @@ function insertStyles() {
     font-size: 12px !important;
   }
 
-  .cabecalho {
-    width: 100vw;
-  }
-
   span.titulo{
     font-size:18px;
   }
@@ -526,7 +522,7 @@ function headerReset() {
 
   const header = document.querySelector("div.cabecalho");
   header.style.marginBottom = "10px";
-  header.style.width = "100vw";
+  header.style.width = "100%";
 
   if (enterpriseTag && window.location.href.includes("/bin/menu01")) {
     verifySystem(enterpriseTag.value, header);
@@ -728,7 +724,7 @@ function cssFunctions() {
 
 function autoReset() {
   const header = document.querySelector("div.cabecalho");
-  if ((header && header.style.width !== "100vw")) {
+  if ((header && header.style.width !== "100%")) {
     cssFunctions();
   }
   requestAnimationFrame(autoReset);
