@@ -669,10 +669,10 @@ function cteTyping() {
       }
       if (shippingType) {
         shippingType.addEventListener("input", (_event) => {
-          if (shippingType.value === '1') {
+          if (shippingType.value === '1' && payerCNPJ.value === consigneeCNPJ.value) {
             changeToShipper();
           }
-          if (shippingType.value === '2') {
+          else if (shippingType.value === '2' && payerCNPJ.value === shipperCNPJ.value) {
             changeToConsignee();
           }
         });
@@ -695,22 +695,23 @@ function cteTyping() {
           changeToShipper();
         }
       });
+
+      if (consigneeName) {
+        consigneeName.addEventListener("click", () => {
+          shippingType.value = '2'
+          changeToConsignee();
+        });
+      }
+
+      if (shipperName) {
+        shipperName.addEventListener("click", () => {
+          shippingType.value = '1'
+          changeToShipper();
+        });
+      }
     }
   }
 
-  if (consigneeName) {
-    consigneeName.addEventListener("click", () => {
-      shippingType.value = '2'
-      changeToConsignee();
-    });
-  }
-
-  if (shipperName) {
-    shipperName.addEventListener("click", () => {
-      shippingType.value = '1'
-      changeToShipper();
-    });
-  }
 
   const boldLabel = document.querySelectorAll('#frm > div:nth-child(33), #frm > div:nth-child(141), #frm > div:nth-child(137), #lnk_pares, #frm > div:nth-child(145)')
   if (boldLabel) {
