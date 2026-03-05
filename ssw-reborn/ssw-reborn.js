@@ -562,7 +562,8 @@ function cteTyping() {
 
   if (typingTitle && typingTitle.textContent.includes("Digitação de CT-e")) {
     const adressClearButton = document.createElement("a");
-    const adressInputs = document.querySelectorAll("#fld_nome_entrega, #fld_end_entrega, #fld_nro_entrega, #fld_comp_entrega, #fld_cep_entrega, #fld_bairro_entrega, #msgcepc")
+    const adressName = document.querySelector('#fld_nome_entrega');
+    const adressInputs = document.querySelectorAll("#fld_end_entrega, #fld_nro_entrega, #fld_comp_entrega, #fld_cep_entrega, #fld_bairro_entrega, #msgcepc")
 
     document.body.appendChild(adressClearButton);
 
@@ -574,6 +575,9 @@ function cteTyping() {
     adressClearButton.style.top = "432px";
     adressClearButton.style.setProperty("font-size", "16px", "important");
     adressClearButton.onclick = () => {
+      adressName.value = "";
+      adressName.dispatchEvent(new Event("change", { bubbles: true }));
+
       adressInputs.forEach(input => {
         input.value = "";
       });
