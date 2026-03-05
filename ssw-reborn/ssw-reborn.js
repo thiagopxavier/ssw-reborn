@@ -566,11 +566,21 @@ function cteTyping() {
 
   function verifyWeight() {
     const weight = document.querySelector("#id_peso_real")
+    const agroupTitle = document.querySelector("#tituloprog > span")
 
     if (weight && parseFloat(weight.value.replace(',', '.')) < 1 && parseFloat(weight.value.replace(',', '.')) != 0) {
       weight.value = '1,000'
     }
     requestAnimationFrame(verifyWeight);
+
+    if (agroupTitle && agroupTitle.textContent.includes("Agrupamento")) {
+      const inputs = document.querySelectorAll('#frm input[style*="width: 64px"]')
+      inputs.forEach(input => {
+        if (parseFloat(input.value.replace(',', '.')) < 1 && parseFloat(input.value.replace(',', '.')) != 0) {
+          input.value = '1,000';
+        }
+      });
+    }
   }
   verifyWeight()
 
