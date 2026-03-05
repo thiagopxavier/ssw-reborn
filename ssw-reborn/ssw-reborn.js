@@ -542,7 +542,27 @@ function cteTyping() {
   const payerCNPJ = document.querySelector('#id_cli_pag_cnpj');
   const payerName = document.querySelector('#id_cli_pag_nome');
   const fromSP = document.querySelector('#msgcadcepr');
+  const typingTitle = document.querySelector("#tituloprog > span")
 
+  if (typingTitle && typingTitle.textContent.includes("Digitação de CT-e")) {
+    const adressClearButton = document.createElement("a");
+    const adressInputs = document.querySelectorAll("#fld_nome_entrega, #fld_end_entrega, #fld_nro_entrega, #fld_comp_entrega, #fld_cep_entrega, #fld_bairro_entrega, #msgcepc")
+
+    document.body.appendChild(adressClearButton);
+
+    adressClearButton.href = "#";
+    adressClearButton.className = "imglnk";
+    adressClearButton.textContent = " × ";
+    adressClearButton.style.position = "absolute";
+    adressClearButton.style.left = "730px";
+    adressClearButton.style.top = "432px";
+    adressClearButton.style.setProperty("font-size", "16px", "important");
+    adressClearButton.onclick = () => {
+      adressInputs.forEach(input => {
+        input.value = "";
+      });
+    };
+  }
 
   if (shippingType) shippingType.style.fontWeight = "bold";
   if (payerCNPJ) payerCNPJ.style.fontWeight = "bold";
