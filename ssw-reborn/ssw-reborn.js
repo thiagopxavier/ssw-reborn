@@ -669,7 +669,7 @@ function cteApproval() {
     } else {
       clearInterval(refresh);
     }
-  }, 2000);
+  }, 3500);
 }
 
 function priceAgreement() {
