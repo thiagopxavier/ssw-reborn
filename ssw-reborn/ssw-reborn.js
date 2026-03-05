@@ -693,7 +693,7 @@ function cteApproval() {
 }
 
 function priceAgreement() {
-  const highlight = document.querySelectorAll('#tp_frete, #qtde_vol, #vlr_merc, #peso, #freteinicial, #vlr_frete');
+  const highlight = document.querySelectorAll('#tp_frete, #qtde_vol, #vlr_merc, #peso, #cubagem, #vlr_frete');
 
   if (highlight) {
     highlight.forEach(h => {
