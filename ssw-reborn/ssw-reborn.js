@@ -769,6 +769,65 @@ function priceAgreement() {
   if (boldLabel) boldLabel.forEach(b => { b.style.fontWeight = "bold" });
 }
 
+function driverRegistration() {
+  const validityMessage = "DATA DE VALIDADE DA HABILITAÇÃO do MOTORISTA  está vencida."
+  let warningValue = 0;
+  const date = new Date();
+  const formattedDate =
+    String(date.getDate()).padStart(2, '0') +
+    String(date.getMonth() + 1).padStart(2, '0') +
+    String(date.getFullYear()).slice(-2);
+
+  const today =
+    formattedDate.slice(4, 6) +
+    formattedDate.slice(2, 4) +
+    formattedDate.slice(0, 2);
+
+  function renderValidity() {
+
+    const validity = document.querySelector("#\\35 0")
+
+    if (validity) {
+      const valid =
+        validity.value.slice(4, 6) +
+        validity.value.slice(2, 4) +
+        validity.value.slice(0, 2);
+
+      if (valid < today && validity.value.length === 6) {
+        validity.style.background = "red";
+        validity.style.color = "white";
+        validity.style.fontWeight = "bold";
+        if (warningValue === 0) {
+          warning(validityMessage);
+          warningValue = 1;
+        }
+      } else {
+        validity.style.background = "";
+        validity.style.color = "";
+        validity.style.fontWeight = "";
+        warningValue = 0;
+      }
+      requestAnimationFrame(renderValidity);
+    }
+  };
+  renderValidity();
+
+}
+
+function warning(message) {
+
+  document.body.insertAdjacentHTML("beforeend", `
+    <div id="errormsg" style="text-align: left; overflow: visible; left: 272px; top: 208px; height: 139px; width: 416px; z-index: 1147483648; visibility: visible;" class="myerrorpanel">
+      <div id="scontentbar" style="text-align: right; width: 416px;">
+        <label style="left:16px;top:6px;color:white;" class="texto">Aviso</label>
+        <a href="#" onclick="document.querySelector('.myerrorpanel').remove();" style="position:relative;font-size:18px;color:white;text-decoration:none;" class="texto">&nbsp;<b>×</b>&nbsp;</a>
+      </div>  
+      <div class="texto" id="errormsglabel" style="color:red;left:16px;top:32px;text-align:left;overflow:visible"><b>
+        <p> ${message} </p> 
+      </div>
+      <a id="-1" onfocus="obj=this;" class="dialog" onclick="document.querySelector('.myerrorpanel').remove();showmsgonclick();" style="top:78px;left:16px;" href="#">Corrigir</a>
+  `);
+}
 
 function cssFunctions() {
   const url = window.location.href;
@@ -796,6 +855,10 @@ function cssFunctions() {
 
     case url.includes("/bin/ssw0767"):
       cteApproval();
+      insertStyles();
+      break;
+    case url.includes("/bin/ssw0021"):
+      driverRegistration();
       insertStyles();
       break;
 
