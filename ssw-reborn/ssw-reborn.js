@@ -814,6 +814,15 @@ function driverRegistration() {
 
 }
 
+function paymentIssuance() {
+  const payementMessage = "O SALDO do MOTORISTA pode estar incorreto."
+  const balance = document.querySelector("#saldo_ccf");
+
+  if (balance && balance.value !== "R$ 0,00") {
+    warning(payementMessage)
+  }
+}
+
 function warning(message) {
 
   document.body.insertAdjacentHTML("beforeend", `
@@ -861,7 +870,10 @@ function cssFunctions() {
       driverRegistration();
       insertStyles();
       break;
-
+    case url.includes("/bin/ssw0331"):
+      paymentIssuance();
+      insertStyles();
+      break;
     default:
       insertStyles();
       break;
