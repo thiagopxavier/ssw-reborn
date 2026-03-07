@@ -604,14 +604,22 @@ function cteTyping() {
     consigneeName.style.color = "#ff2626ff";
   }
 
+  document.body.insertAdjacentHTML("beforeend",
+    `<input  value="" style="left:600px; top:288px; width:120px;" id="weightM3" class="nodata" readonly="">`
+  );
+
+
+  const weightM3 = document.querySelector("#weightM3");
+
   function verifyWeight() {
     const weight = document.querySelector("#id_peso_real")
     const agroupTitle = document.querySelector("#tituloprog > span")
+    const volumeM3 = document.querySelector("#id_m3");
+    const typeOfMerchandise = document.querySelector("#id_mercadoria");
 
     if (weight && parseFloat(weight.value.replace(',', '.')) < 1 && parseFloat(weight.value.replace(',', '.')) != 0) {
       weight.value = '1,000'
     }
-    requestAnimationFrame(verifyWeight);
 
     if (agroupTitle && agroupTitle.textContent.includes("Agrupamento")) {
       const inputs = document.querySelectorAll('#frm input[style*="width: 64px"]')
@@ -621,8 +629,34 @@ function cteTyping() {
         }
       });
     }
+
+    if (volumeM3 && parseFloat(volumeM3.value.replace(',', '.')) !== 0) {
+      calculateVolume(parseFloat(volumeM3.value.replace(',', '.')), typeOfMerchandise)
+    }
+
+
+    requestAnimationFrame(verifyWeight);
   }
   verifyWeight()
+
+  function calculateVolume(volumeM3, type) {
+    switch (Number(type.value)) {
+      case 0:
+        break;
+      case 1:
+        weightM3.value = (volumeM3 * 300) + ' Kg'
+        break;
+      case 2:
+        weightM3.value = (volumeM3 * 200) + ' Kg'
+        break;
+      case 3:
+        weightM3.value = (volumeM3 * 250) + ' Kg'
+        break;
+      default:
+        weightM3.value = (volumeM3 * 300) + ' Kg'
+        break;
+    }
+  }
 
   function verifyState() {
     if (fromSP) {
