@@ -557,7 +557,6 @@ function cteTyping() {
   const payerAdressCode = document.querySelector('#id_cli_pag_cep');
   const payerCountry = document.querySelector('#msgcadcepp');
 
-  const fromSP = document.querySelector('#msgcadcepr');
   const typingTitle = document.querySelector("#tituloprog > span")
 
   if (typingTitle && typingTitle.textContent.includes("Digitação de CT-e")) {
@@ -607,7 +606,6 @@ function cteTyping() {
   document.body.insertAdjacentHTML("beforeend",
     `<input  value="" style="left:600px; top:288px; width:120px;" id="weightM3" class="nodata" readonly="">`
   );
-
 
   const weightM3 = document.querySelector("#weightM3");
 
@@ -659,16 +657,53 @@ function cteTyping() {
   }
 
   function verifyState() {
-    if (fromSP) {
-      if (fromSP.value.includes('/ SP') || fromSP.value === '') {
-        fromSP.style.background = ""
-        fromSP.style.color = "";
-      } else {
-        fromSP.style.background = "red";
-        fromSP.style.color = "white";
+    const licensePlateMessage = "NÃO fazemos COLETA nesta cidade."
+    let warningValue = 0;
+
+    const cities = ["ARUJA", "BARUERI", "CARAPICUIBA", "COTIA", "DIADEMA", "EMBU DAS ARTES   ", "FERRAZ DE VASCONCELOS", "GUARULHOS", "ITAPECERICA DA SERRA", "ITAPEVI", "ITAQUAQUECETUBA", "JANDIRA", "MAUA", "MOGI DAS CRUZES", "OSASCO", "POA", "SANTANA DE PARNAIBA", "SANTO ANDRE", "SAO BERNARDO DO CAMPO", "SAO CAETANO DO SUL", "SAO PAULO", "SUZANO", "TABOAO DA SERRA"]
+
+
+    const sendButton = document.querySelector("#lnk_env");
+
+
+    function renderVerifyState() {
+      if (typingTitle && typingTitle.textContent.includes("Digitação de CT-e Normal")) {
+        const licensePlate = document.querySelector("#\\31 3");
+        const shipperCity = shipperCountry.value.split("/")[0].trim();
+
+
+        if (licensePlate && licensePlate.value.toUpperCase() !== "ARMAZEM" && licensePlate.value.length === 7 && !cities.includes(shipperCity) && shipperCountry.value !== "") {
+          sendButton.style.pointerEvents = "none";
+          sendButton.style.cursor = "default";
+          sendButton.setAttribute("accesskey", "");
+          sendButton.style.opacity = "0.3";
+          sendButton.style.filter = "grayscale(1)";
+          if (warningValue === 0) {
+            warning(licensePlateMessage);
+            warningValue = 1;
+          }
+        } else {
+          sendButton.style.pointerEvents = "auto";
+          sendButton.style.cursor = "pointer";
+          sendButton.setAttribute("accesskey", "&");
+          sendButton.style.opacity = "1";
+          sendButton.style.filter = "none";
+          warningValue = 0;
+        }
       }
+
+      if (shipperCountry) {
+        if (shipperCountry.value.includes('/ SP') || shipperCountry.value === '') {
+          shipperCountry.style.background = "";
+          shipperCountry.style.color = "";
+        } else {
+          shipperCountry.style.background = "red";
+          shipperCountry.style.color = "white";
+        }
+      }
+      requestAnimationFrame(renderVerifyState);
     }
-    requestAnimationFrame(verifyState);
+    renderVerifyState();
   }
   verifyState();
 
@@ -749,7 +784,6 @@ function cteTyping() {
       }
     }
   }
-
 
   const boldLabel = document.querySelectorAll('#frm > div:nth-child(33), #frm > div:nth-child(141), #frm > div:nth-child(137), #lnk_pares, #frm > div:nth-child(145)')
   if (boldLabel) {
@@ -858,7 +892,6 @@ function paymentIssuance() {
 }
 
 function warning(message) {
-
   document.body.insertAdjacentHTML("beforeend", `
     <div id="errormsg" style="text-align: left; overflow: visible; left: 272px; top: 208px; height: 139px; width: 416px; z-index: 1147483648; visibility: visible;" class="myerrorpanel">
       <div id="scontentbar" style="text-align: right; width: 416px;">
