@@ -662,9 +662,7 @@ function cteTyping() {
 
     const cities = ["ARUJA", "BARUERI", "CARAPICUIBA", "COTIA", "DIADEMA", "EMBU DAS ARTES   ", "FERRAZ DE VASCONCELOS", "GUARULHOS", "ITAPECERICA DA SERRA", "ITAPEVI", "ITAQUAQUECETUBA", "JANDIRA", "MAUA", "MOGI DAS CRUZES", "OSASCO", "POA", "SANTANA DE PARNAIBA", "SANTO ANDRE", "SAO BERNARDO DO CAMPO", "SAO CAETANO DO SUL", "SAO PAULO", "SUZANO", "TABOAO DA SERRA"]
 
-
     const sendButton = document.querySelector("#lnk_env");
-
 
     function renderVerifyState() {
       if (typingTitle && typingTitle.textContent.includes("Digitação de CT-e Normal")) {
@@ -706,6 +704,59 @@ function cteTyping() {
     renderVerifyState();
   }
   verifyState();
+
+  if (typingTitle && typingTitle.textContent.includes("Digitação de CT-e")) {
+    const buttonReverse = document.createElement('a');
+    buttonReverse.innerHTML = "⟳";
+    buttonReverse.className = "imglnk";
+    buttonReverse.href = "#";
+    buttonReverse.style.cssText = "top:111px; left:415px; position:absolute; text-decoration:none; font-weight:bold; color:inherit;";
+    buttonReverse.onclick = function (e) {
+      e.preventDefault();
+      reverse();
+      showmsgonclick();
+    };
+    document.body.appendChild(buttonReverse);
+  }
+
+
+  function reverse() {
+    const oldShipperCNPJ = shipperCNPJ.value;
+    const oldShipperName = shipperName.value;
+    const oldShipperAdress = shipperAdress.value;
+    const oldShipperAdressNumber = shipperAdressNumber.value;
+    const oldShipperAdressCode = shipperAdressCode.value;
+    const oldShipperCountry = shipperCountry.value;
+
+    const oldConsigneeCNPJ = consigneeCNPJ.value;
+    const oldConsigneeName = consigneeName.value;
+    const oldConsigneeAdress = consigneeAdress.value;
+    const oldConsigneeAdressNumber = consigneeAdressNumber.value;
+    const oldConsigneeAdressCode = consigneeAdressCode.value;
+    const oldConsigneeCountry = consigneeCountry.value;
+
+    shipperCNPJ.value = oldConsigneeCNPJ;
+    shipperName.value = oldConsigneeName;
+    shipperAdress.value = oldConsigneeAdress;
+    shipperAdressNumber.value = oldConsigneeAdressNumber;
+    shipperAdressCode.value = oldConsigneeAdressCode;
+    shipperCountry.value = oldConsigneeCountry;
+
+    consigneeCNPJ.value = oldShipperCNPJ;
+    consigneeName.value = oldShipperName;
+    consigneeAdress.value = oldShipperAdress;
+    consigneeAdressNumber.value = oldShipperAdressNumber;
+    consigneeAdressCode.value = oldShipperAdressCode;
+    consigneeCountry.value = oldShipperCountry;
+
+    if (shippingType.value === '1') {
+      shippingType.value = "2"
+      changeToConsignee();
+    } else {
+      shippingType.value = "1"
+      changeToShipper();
+    }
+  }
 
   function changeToConsignee() {
     payerCNPJ.value = consigneeCNPJ.value
