@@ -628,11 +628,11 @@ function cteTyping() {
       });
     }
 
-    if (volumeM3 && parseFloat(volumeM3.value.replace(',', '.')) !== 0) {
+    if (volumeM3 && parseFloat(volumeM3.value.replace(',', '.')) !== 0 && volumeM3.value !== "") {
       calculateVolume(parseFloat(volumeM3.value.replace(',', '.')), typeOfMerchandise)
+    } else if (volumeM3 && (parseFloat(volumeM3.value.replace(',', '.')) === 0 || volumeM3.value === "")) {
+      weightM3.value = "";
     }
-
-
     requestAnimationFrame(verifyWeight);
   }
   verifyWeight()
@@ -642,16 +642,16 @@ function cteTyping() {
       case 0:
         break;
       case 1:
-        weightM3.value = (volumeM3 * 300) + ' Kg'
+        weightM3.value = (volumeM3 * 300).toFixed(3) + ' Kg'
         break;
       case 2:
-        weightM3.value = (volumeM3 * 200) + ' Kg'
+        weightM3.value = (volumeM3 * 200).toFixed(3) + ' Kg'
         break;
       case 3:
-        weightM3.value = (volumeM3 * 250) + ' Kg'
+        weightM3.value = (volumeM3 * 250).toFixed(3) + ' Kg'
         break;
       default:
-        weightM3.value = (volumeM3 * 300) + ' Kg'
+        weightM3.value = (volumeM3 * 300).toFixed(3) + ' Kg'
         break;
     }
   }
@@ -669,18 +669,22 @@ function cteTyping() {
         const licensePlate = document.querySelector("#\\31 3");
         const shipperCity = shipperCountry.value.split("/")[0].trim();
 
-
-        if (licensePlate && licensePlate.value.toUpperCase() !== "ARMAZEM" && licensePlate.value.length === 7 && !cities.includes(shipperCity) && shipperCountry.value !== "") {
+        if (licensePlate && licensePlate.value.toUpperCase() !== "ARMAZEM" && licensePlate.value.length === 7 && !cities.includes(shipperCity) && shipperCountry.value !== "" && consigneeCountry.value !== "" && !shipperCountry.value.includes('/ SP')) {
           sendButton.style.pointerEvents = "none";
           sendButton.style.cursor = "default";
           sendButton.setAttribute("accesskey", "");
           sendButton.style.opacity = "0.3";
           sendButton.style.filter = "grayscale(1)";
+          sendButton.style.display = 'none'
           if (warningValue === 0) {
             warning(licensePlateMessage);
             warningValue = 1;
           }
         } else {
+          if (document.querySelector('.myerrorpanel')) {
+            document.querySelector('.myerrorpanel').remove()
+          }
+          sendButton.style.display = "";
           sendButton.style.pointerEvents = "auto";
           sendButton.style.cursor = "pointer";
           sendButton.setAttribute("accesskey", "&");
@@ -930,14 +934,13 @@ function driverRegistration() {
     }
   };
   renderValidity();
-
 }
 
 function paymentIssuance() {
-  const payementMessage = "O SALDO do MOTORISTA pode estar incorreto."
+  const payementMessage = "O SALDO do MOTORISTA está negativo."
   const balance = document.querySelector("#saldo_ccf");
 
-  if (balance && balance.value !== "R$ 0,00") {
+  if (balance && parseFloat(balance.value.split("R$")[1].trim()) < 0) {
     warning(payementMessage)
   }
 }
