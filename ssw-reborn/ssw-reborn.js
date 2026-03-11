@@ -669,7 +669,8 @@ function cteTyping() {
         const licensePlate = document.querySelector("#\\31 3");
         const shipperCity = shipperCountry.value.split("/")[0].trim();
 
-        if (licensePlate && licensePlate.value.toUpperCase() !== "ARMAZEM" && licensePlate.value.length === 7 && !cities.includes(shipperCity) && shipperCountry.value !== "" && consigneeCountry.value !== "" && !shipperCountry.value.includes('/ SP')) {
+        if ((licensePlate && shipperCountry.value !== "" && consigneeCountry.value !== "" && licensePlate.value.toUpperCase() !== "ARMAZEM" && licensePlate.value.length === 7) &&
+          (!cities.includes(shipperCity) || !shipperCountry.value.includes('/ SP'))) {
           sendButton.style.pointerEvents = "none";
           sendButton.style.cursor = "default";
           sendButton.setAttribute("accesskey", "");
