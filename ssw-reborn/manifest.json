@@ -1,11 +1,11 @@
 {
   "name": "SSW Reborn",
   "description": "Custom CSS for SSW system",
-  "version": "1.9",
+  "version": "1.10",
   "content_scripts": [
     {
       "matches": [
-        "https://*.sistema.ssw.inf.br/bin/*"
+        "https://*.ssw.inf.br/bin/*"
       ],
       "all_frames": true,
       "js": [
@@ -25,7 +25,7 @@
     "tabs"
   ],
   "host_permissions": [
-    "https://*.sistema.ssw.inf.br/*"
+    "https://*.ssw.inf.br/bin/*"
   ],
   "incognito": "split",
   "action": {
