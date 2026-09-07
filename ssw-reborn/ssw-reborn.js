@@ -660,7 +660,7 @@ function cteTyping() {
     const licensePlateMessage = "NÃO fazemos COLETA nesta cidade."
     let warningValue = 0;
 
-    const cities = ["ARUJA", "BARUERI", "CARAPICUIBA", "COTIA", "DIADEMA", "EMBU DAS ARTES   ", "FERRAZ DE VASCONCELOS", "GUARULHOS", "ITAPECERICA DA SERRA", "ITAPEVI", "ITAQUAQUECETUBA", "JANDIRA", "MAUA", "MOGI DAS CRUZES", "OSASCO", "POA", "SANTANA DE PARNAIBA", "SANTO ANDRE", "SAO BERNARDO DO CAMPO", "SAO CAETANO DO SUL", "SAO PAULO", "SUZANO", "TABOAO DA SERRA"]
+    const cities = ["ARUJA", "BARUERI", "CARAPICUIBA", "COTIA", "DIADEMA", "EMBU DAS ARTES", "FERRAZ DE VASCONCELOS", "GUARULHOS", "ITAPECERICA DA SERRA", "ITAPEVI", "ITAQUAQUECETUBA", "JANDIRA", "MAUA", "MOGI DAS CRUZES", "OSASCO", "POA", "SANTANA DE PARNAIBA", "SANTO ANDRE", "SAO BERNARDO DO CAMPO", "SAO CAETANO DO SUL", "SAO PAULO", "SUZANO", "TABOAO DA SERRA"]
 
     const sendButton = document.querySelector("#lnk_env");
 
@@ -989,6 +989,10 @@ function cssFunctions() {
       insertStyles();
       break;
     case url.includes("/bin/ssw0021"):
+      driverRegistration();
+      insertStyles();
+      break;
+    case url.includes("/bin/ssw0019"):
       driverRegistration();
       insertStyles();
       break;
