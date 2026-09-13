@@ -17,9 +17,25 @@ function loginPage() {
   }
 
   const formLogin = document.querySelector('#frm');
+
+  if (formLogin) {
+    let logo = formLogin.querySelector('.logo-transapucarana');
+
+    if (!logo) {
+      const transapucaranaImage = chrome.runtime.getURL("icons/logo-transapucarana.png");
+      logo = document.createElement("img");
+      logo.src = transapucaranaImage;
+      logo.style.width = "250px";
+      logo.style.marginBottom = "20px";
+      logo.className = "logo-transapucarana";
+      formLogin.prepend(logo);
+    }
+  }
+
   if (formLogin) {
     formLogin.style.background = "#fffffff2";
     formLogin.style.padding = "30px";
+    formLogin.style.paddingBottom = "0px";
     formLogin.style.borderRadius = "12px";
     formLogin.style.boxShadow = "0 8px 25px #0000004d";
     formLogin.style.width = "250px";
@@ -155,7 +171,6 @@ function loginPage() {
 };
 
 function mainMenu() {
-
   const enterpriseTagInput = document.querySelector("input:not([type='checkbox'])#\\32");
   if (enterpriseTagInput) {
     enterpriseTagInput.addEventListener("input", (_event) => {
