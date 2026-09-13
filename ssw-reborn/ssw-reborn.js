@@ -597,7 +597,6 @@ function cteTyping() {
     adressInputs.forEach(input => {
       input.value = "";
     });
-
   }
 
   if (shippingType) shippingType.style.fontWeight = "bold";
@@ -650,9 +649,7 @@ function cteTyping() {
     } else if (volumeM3 && (parseFloat(volumeM3.value.replace(',', '.')) === 0 || volumeM3.value === "")) {
       weightM3.value = "";
     }
-    requestAnimationFrame(verifyWeight);
   }
-  verifyWeight()
 
   function calculateVolume(volumeM3, type) {
     switch (Number(type.value)) {
@@ -817,6 +814,13 @@ function cteTyping() {
     payerCountry.value = shipperCountry.value
   }
 
+  function verifyReceiverAdressCode() {
+    const receiverAdressCode = document.querySelector("#fld_cep_entrega")
+    if (receiverAdressCode.value === "") {
+      clearButton();
+    }
+  }
+
   function verifyPayer() {
     if (shippingType && payerCNPJ && shipperCNPJ && consigneeCNPJ) {
       if (payerCNPJ.value === shipperCNPJ.value) {
@@ -843,9 +847,7 @@ function cteTyping() {
         });
       }
     }
-    requestAnimationFrame(verifyPayer);
   }
-  verifyPayer();
 
   const shippingTypeLabel = document.querySelector('#frm > div:nth-child(33)');
   if (shippingTypeLabel && shippingType && payerCNPJ && shipperCNPJ && consigneeCNPJ) {
@@ -890,6 +892,15 @@ function cteTyping() {
       highlight.style.fontWeight = "bold";
     })
   }
+
+  function renderCteTyping() {
+    verifyPayer();
+    verifyWeight()
+    verifyReceiverAdressCode();
+
+    requestAnimationFrame(renderCteTyping);
+  }
+  renderCteTyping();
 }
 
 function cteApproval() {
