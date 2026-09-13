@@ -816,7 +816,7 @@ function cteTyping() {
 
   function verifyReceiverAdressCode() {
     const receiverAdressCode = document.querySelector("#fld_cep_entrega")
-    if (receiverAdressCode.value === "") {
+    if (receiverAdressCode && receiverAdressCode.value === "") {
       clearButton();
     }
   }
