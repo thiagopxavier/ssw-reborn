@@ -6,10 +6,14 @@ function loginPage() {
     body.alignItems = "center";
     body.background = "none";
 
-    setTimeout(() => {
-      body.backgroundImage = "none";
-      body.background = "none";
-    }, 100);
+    function renderRemoveBackground() {
+      if (body.backgroundImage !== "none" || body.background !== "none") {
+        body.backgroundImage = "none";
+        body.background = "none";
+      }
+      requestAnimationFrame(renderRemoveBackground);
+    }
+    renderRemoveBackground();
   }
 
   const formLogin = document.querySelector('#frm');
@@ -39,7 +43,6 @@ function loginPage() {
     input.style.fontSize = "14px";
   });
 
-
   document.querySelectorAll('#frm input[type="checkbox"]').forEach(checkboxInput => {
     checkboxInput.style.width = "20px";
     checkboxInput.style.marginTop = "5px";
@@ -52,7 +55,6 @@ function loginPage() {
     textDiv.style.marginTop = "4px";
     textDiv.style.textAlign = "left";
   });
-
 
   const oldStyle = document.getElementById("loginStyle");
   if (oldStyle) {
@@ -100,8 +102,6 @@ function loginPage() {
           button.style.boxShadow = "none";
         };
       }
-
-
     });
   }
 
@@ -340,7 +340,6 @@ function mainMenu() {
 
 }
 
-
 function insertStyles() {
   const Buttons = document.querySelectorAll("a.imglnk");
 
@@ -533,7 +532,6 @@ function headerReset() {
 }
 
 function cteTyping() {
-
   const shippingType = document.querySelector('#\\31 6');
 
   const shipperCNPJ = document.querySelector('#id_cli_rem_cnpj');
