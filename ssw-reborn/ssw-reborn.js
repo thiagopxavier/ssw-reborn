@@ -984,6 +984,67 @@ function driverRegistration() {
   renderValidity();
 }
 
+function vehicleRegistration() {
+  const vehicleType = document.querySelector("#tp_veic");
+  const vehicleAxle = document.querySelector("#qtde_eixos_veic");
+  let oldVehicleType;
+
+  if (vehicleType) {
+    oldVehicleType = vehicleType.value.trim().toUpperCase();
+  }
+
+  const vehicleTypeList = {
+    "1": 2, // CARRO
+    "3": 2, // 3/4
+    "C": 2, // CAVALO
+    "F": 2, // FURGAO LEVE
+    "K": 2, // TOCO
+    "M": 2, // MOTO
+    "T": 3, // TRUCK
+    "U": 4, // BITRUCK
+    "V": 2, // VAN
+    "Z": 3  // CAVALO TRUCADO
+  };
+
+  function renderVerifyType() {
+    if (vehicleType && vehicleAxle) {
+      if (oldVehicleType !== vehicleType.value.trim().toUpperCase()) {
+        changeAxles();
+        oldVehicleType = vehicleType.value.trim().toUpperCase();
+      }
+    }
+  }
+
+  function changeAxles() {
+    if (vehicleTypeList[vehicleType.value.trim().toUpperCase()]) {
+      vehicleAxle.value = String(vehicleTypeList[vehicleType.value.trim().toUpperCase()]).padStart(2, '0');
+    }
+  }
+
+  function renderVerifyAxles() {
+    if (vehicleType && vehicleAxle) {
+      if (vehicleTypeList[vehicleType.value.trim().toUpperCase()] &&
+        Number(vehicleAxle.value.trim()) !== vehicleTypeList[vehicleType.value.trim().toUpperCase()]) {
+        vehicleAxle.style.background = "red";
+        vehicleAxle.style.color = "white";
+        vehicleAxle.style.fontWeight = "bold";
+      } else {
+        vehicleAxle.style.background = "";
+        vehicleAxle.style.color = "";
+        vehicleAxle.style.fontWeight = "";
+      }
+    }
+  };
+  renderVerifyAxles();
+
+  function renderVehicleRegistration() {
+    renderVerifyType();
+    renderVerifyAxles();
+    requestAnimationFrame(renderVehicleRegistration);
+  }
+  renderVehicleRegistration();
+}
+
 function paymentIssuance() {
   const payementMessage = "O SALDO do MOTORISTA está negativo."
   const balance = document.querySelector("#saldo_ccf");
@@ -1040,6 +1101,7 @@ function cssFunctions() {
       insertStyles();
       break;
     case url.includes("/bin/ssw0019"):
+      vehicleRegistration();
       driverRegistration();
       insertStyles();
       break;
