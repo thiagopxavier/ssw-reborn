@@ -786,7 +786,7 @@ function cteTyping() {
     payerCountry.value = consigneeCountry.value
   }
 
-  function copyConsigneeCNPJ() {
+  function receiverAutoInsert() {
     const receiver = document.querySelector("#lnk_tela_receb");
     const receiverButton = document.querySelector("#lnk_receb_env");
     const receiverInputCNPJ = document.querySelector("#fld_cgc_receb");
@@ -794,8 +794,8 @@ function cteTyping() {
 
     if (receiver) {
       receiver.addEventListener("click", () => {
-        if (receiverInputCNPJ.value === "" && receiverAdressCode.value === "" ||
-          receiverInputCNPJ.value === consigneeCNPJ.value && receiverAdressCode.value === ""
+        if ((receiverInputCNPJ.value === "" || receiverInputCNPJ.value === consigneeCNPJ.value) && receiverAdressCode.value === "" ||
+          receiverInputCNPJ.value !== consigneeCNPJ.value
         ) {
           receiverInputCNPJ.value = consigneeCNPJ.value;
           receiverButton.click();
@@ -803,7 +803,7 @@ function cteTyping() {
       });
     }
   }
-  copyConsigneeCNPJ();
+  receiverAutoInsert();
 
   function changeToShipper() {
     payerCNPJ.value = shipperCNPJ.value
