@@ -590,7 +590,7 @@ function cteTyping() {
 
   function clearButton() {
     const adressName = document.querySelector('#fld_nome_entrega');
-    const adressInputs = document.querySelectorAll("#fld_end_entrega, #fld_nro_entrega, #fld_comp_entrega, #fld_cep_entrega, #fld_bairro_entrega, #msgcepc")
+    const adressInputs = document.querySelectorAll("#fld_end_entrega, #fld_nro_entrega, #fld_comp_entrega, #fld_cep_entrega, #fld_bairro_entrega, #msgcepc");
 
     adressName.value = "";
     adressName.dispatchEvent(new Event("change", { bubbles: true }));
@@ -816,7 +816,9 @@ function cteTyping() {
 
   function verifyReceiverAdressCode() {
     const receiverAdressCode = document.querySelector("#fld_cep_entrega")
-    if (receiverAdressCode && receiverAdressCode.value === "") {
+    const adressInputs = document.querySelectorAll("#fld_end_entrega, #fld_nro_entrega, #fld_comp_entrega, #fld_bairro_entrega, #msgcepc");
+    const isAdressEmpty = [...adressInputs].every(input => input.value === "");
+    if ((receiverAdressCode && receiverAdressCode.value === "") && !isAdressEmpty) {
       clearButton();
     }
   }
