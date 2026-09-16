@@ -909,8 +909,34 @@ function cteApproval() {
   const approvalWaitlist = document.querySelector('#\\36 ');
   const refreshButton = document.querySelector('#\\31 ');
 
+  if (refreshButton && approvalWaitlist && approvalWaitlist.textContent) {
+    refreshButton.style.pointerEvents = "none";
+    buttonAnimation();
+  }
+
+  function buttonAnimation() {
+    setInterval(() => {
+      if (refreshButton) {
+        switch (refreshButton.textContent.trim()) {
+          case "Atualizando":
+            refreshButton.textContent = "Atualizando.";
+            break;
+          case "Atualizando.":
+            refreshButton.textContent = "Atualizando..";
+            break;
+          case "Atualizando..":
+            refreshButton.textContent = "Atualizando...";
+            break;
+          default:
+            refreshButton.textContent = "Atualizando";
+            break;
+        }
+      }
+    }, 500)
+  }
+
   const refresh = setInterval(() => {
-    if (refreshButton.textContent.includes("Atualizar") && approvalWaitlist && approvalWaitlist.textContent) {
+    if (refreshButton && approvalWaitlist && approvalWaitlist.textContent) {
       clearInterval(refresh);
       refreshButton && refreshButton.click();
     } else {
