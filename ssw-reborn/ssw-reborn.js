@@ -1094,15 +1094,15 @@ function paymentIssuance() {
 
 function warning(message) {
   document.body.insertAdjacentHTML("beforeend", `
-    <div id="errormsg" style="text-align: left; overflow: visible; left: 272px; top: 208px; height: 139px; width: 416px; z-index: 1147483648; visibility: visible;" class="myerrorpanel">
+    <div id="errormsg" style="text-align: left; overflow: visible; left: 272px; top: 208px; height: 139px; width: 416px; z-index: 1147483648; visibility: visible;" class="sswrebornerrorpanel">
       <div id="scontentbar" style="text-align: right; width: 416px;">
         <label style="left:16px;top:6px;color:white;" class="texto">Aviso</label>
-        <a href="#" onclick="document.querySelector('.myerrorpanel').remove();" style="position:relative;font-size:18px;color:white;text-decoration:none;" class="texto">&nbsp;<b>×</b>&nbsp;</a>
+        <a href="#" onclick="this.closest('.sswrebornerrorpanel').remove();" style="position:relative;font-size:18px;color:white;text-decoration:none;" class="texto">&nbsp;<b>×</b>&nbsp;</a>
       </div>  
       <div class="texto" id="errormsglabel" style="color:red;left:16px;top:32px;text-align:left;overflow:visible"><b>
         <p> ${message} </p> 
       </div>
-      <a class="dialog" onclick="document.querySelector('.myerrorpanel').remove();showmsgonclick();" style="top:78px;left:16px;" href="#">Corrigir</a>
+      <a onclick="this.closest('.sswrebornerrorpanel').remove();showmsgonclick();" style="top:78px;left:16px; color: DarkBlue; text-decoration: none; border-bottom: 1px solid rgb(166, 166, 255);" href="#">Corrigir</a>
   `);
 }
 
