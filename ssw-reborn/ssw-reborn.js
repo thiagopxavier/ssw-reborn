@@ -911,6 +911,7 @@ function cteApproval() {
 
   if (refreshButton && approvalWaitlist && approvalWaitlist.textContent) {
     refreshButton.style.pointerEvents = "none";
+    refreshButton.textContent = "Atualizando";
     buttonAnimation();
   }
 
@@ -1092,7 +1093,7 @@ function warning(message) {
       <div class="texto" id="errormsglabel" style="color:red;left:16px;top:32px;text-align:left;overflow:visible"><b>
         <p> ${message} </p> 
       </div>
-      <a id="-1" onfocus="obj=this;" class="dialog" onclick="document.querySelector('.myerrorpanel').remove();showmsgonclick();" style="top:78px;left:16px;" href="#">Corrigir</a>
+      <a class="dialog" onclick="document.querySelector('.myerrorpanel').remove();showmsgonclick();" style="top:78px;left:16px;" href="#">Corrigir</a>
   `);
 }
 
