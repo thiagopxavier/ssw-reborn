@@ -1016,6 +1016,7 @@ function driverRegistration() {
 function vehicleRegistration() {
   const vehicleType = document.querySelector("#tp_veic");
   const vehicleAxle = document.querySelector("#qtde_eixos_veic");
+
   let oldVehicleType;
 
   if (vehicleType) {
@@ -1035,11 +1036,19 @@ function vehicleRegistration() {
     "Z": 3  // CAVALO TRUCADO
   };
 
+  if (vehicleType && vehicleAxle) {
+    vehicleType.addEventListener('input', () => {
+      changeAxles();
+    });
+  }
+
   function renderVerifyType() {
     if (vehicleType && vehicleAxle) {
-      if (oldVehicleType !== vehicleType.value.trim().toUpperCase()) {
-        changeAxles();
-        oldVehicleType = vehicleType.value.trim().toUpperCase();
+      let vehicleListPop = document.querySelector("#poplkp")
+      if (vehicleListPop) {
+        vehicleListPop && vehicleListPop.addEventListener('click', () => {
+          changeAxles();
+        });
       }
     }
   }
