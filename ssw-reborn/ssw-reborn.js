@@ -696,8 +696,8 @@ function cteTyping() {
             warningValue = 1;
           }
         } else {
-          if (document.querySelector('.myerrorpanel')) {
-            document.querySelector('.myerrorpanel').remove()
+          if (document.querySelector('.sswrebornerrorpanel')) {
+            document.querySelector('.sswrebornerrorpanel').remove()
           }
           sendButton.style.display = "";
           sendButton.style.pointerEvents = "auto";
