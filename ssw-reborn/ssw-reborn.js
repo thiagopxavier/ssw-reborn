@@ -790,19 +790,33 @@ function cteTyping() {
     const receiver = document.querySelector("#lnk_tela_receb");
     const receiverButton = document.querySelector("#lnk_receb_env");
     const receiverInputCNPJ = document.querySelector("#fld_cgc_receb");
+    const receiverInputAdress = document.querySelector("#lnk_cli_ent_end");
     const receiverAdressCode = document.querySelector("#fld_cep_entrega")
 
     if (receiver) {
       receiver.addEventListener("click", () => {
-        if ((receiverInputCNPJ.value === "" || receiverInputCNPJ.value === consigneeCNPJ.value) && receiverAdressCode.value === "" ||
-          receiverInputCNPJ.value !== consigneeCNPJ.value
-        ) {
-          receiverInputCNPJ.value = consigneeCNPJ.value;
+        if (receiverAdressCode.value === "") {
+          if (receiverInputCNPJ.value === "" || receiverInputCNPJ.value === consigneeCNPJ.value || receiverInputCNPJ.value !== consigneeCNPJ.value) {
+            receiverInputCNPJ.value = consigneeCNPJ.value;
+            receiverButton.click();
+          }
+        }
+      });
+    }
+
+    if (receiverInputAdress) {
+      receiverInputAdress.addEventListener("click", () => {
+        if (receiverAdressCode.value === "") {
+          if (receiverInputCNPJ.value === "" || receiverInputCNPJ.value === consigneeCNPJ.value || receiverInputCNPJ.value !== consigneeCNPJ.value) {
+            receiverInputCNPJ.value = consigneeCNPJ.value;
+            receiverButton.click();
+          }
           receiverButton.click();
         }
       });
     }
   }
+
   receiverAutoInsert();
 
   function changeToShipper() {
