@@ -1134,19 +1134,28 @@ function cssFunctions() {
       cteApproval();
       insertStyles();
       break;
+
     case url.includes("/bin/ssw0021"):
       driverRegistration();
       insertStyles();
       break;
+
     case url.includes("/bin/ssw0019"):
       vehicleRegistration();
       driverRegistration();
       insertStyles();
       break;
+
     case url.includes("/bin/ssw0331"):
       paymentIssuance();
       insertStyles();
       break;
+
+    case url.includes("/bin/ssw0194"):
+      paymentIssuance();
+      insertStyles();
+      break;
+
     default:
       insertStyles();
       break;
