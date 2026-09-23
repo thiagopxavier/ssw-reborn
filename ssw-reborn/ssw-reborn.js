@@ -678,6 +678,14 @@ function cteTyping() {
 
     const sendButton = document.querySelector("#lnk_env");
 
+
+    function changePlateCommand() {
+      let licensePlateDefault = document.querySelector("#\\31 3");
+      let licenseDescription = document.querySelector("#msgplaca");
+      licensePlateDefault.value = "ARMAZEM";
+      licenseDescription.value = " //ORIGEM NA UNIDADE ";
+    }
+
     function renderVerifyState() {
       if (typingTitle && typingTitle.textContent.includes("Digitação de CT-e Normal")) {
         const licensePlate = document.querySelector("#\\31 3");
@@ -692,7 +700,7 @@ function cteTyping() {
           sendButton.style.filter = "grayscale(1)";
           sendButton.style.display = 'none'
           if (warningValue === 0) {
-            warning(licensePlateMessage);
+            warning(licensePlateMessage, changePlateCommand);
             warningValue = 1;
           }
         } else {
@@ -733,7 +741,6 @@ function cteTyping() {
     buttonReverse.onclick = function (e) {
       e.preventDefault();
       reverse();
-      showmsgonclick();
     };
     document.body.appendChild(buttonReverse);
   }
@@ -1106,7 +1113,7 @@ function paymentIssuance() {
   }
 }
 
-function warning(message) {
+function warning(message, command) {
   document.body.insertAdjacentHTML("beforeend", `
     <div id="errormsg" style="text-align: left; overflow: visible; left: 272px; top: 208px; height: 139px; width: 416px; z-index: 1147483648; visibility: visible;" class="sswrebornerrorpanel">
       <div id="scontentbar" style="text-align: right; width: 416px;">
@@ -1116,8 +1123,17 @@ function warning(message) {
       <div class="texto" id="errormsglabel" style="color:red;left:16px;top:32px;text-align:left;overflow:visible"><b>
         <p> ${message} </p> 
       </div>
-      <a onclick="this.closest('.sswrebornerrorpanel').remove();" style="top:78px;left:16px; color: DarkBlue; text-decoration: none; border-bottom: 1px solid rgb(166, 166, 255);" href="#">Corrigir</a>
+      <a class="fixbutton" style="top:78px;left:16px; color: DarkBlue; text-decoration: none; border-bottom: 1px solid rgb(166, 166, 255);" href="#">Corrigir</a>
   `);
+
+  const warningPanel = document.querySelector('.sswrebornerrorpanel');
+  warningPanel.querySelector('.fixbutton').addEventListener('click', (e) => {
+    e.preventDefault();
+    warningPanel.remove();
+    if (typeof command === 'function') {
+      command();
+    }
+  });
 }
 
 function cssFunctions() {
