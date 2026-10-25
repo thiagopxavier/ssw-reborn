@@ -620,7 +620,7 @@ function cteTyping() {
   }
 
   document.body.insertAdjacentHTML("beforeend",
-    `<input  value="" style="left:600px; top:288px; width:120px;" id="weightM3" class="nodata" readonly="">`
+    `<input  value="" style="left:600px; top:288px; width:120px; display:none;" id="weightM3" class="nodata" readonly="">`
   );
 
   const weightM3 = document.querySelector("#weightM3");
@@ -648,23 +648,29 @@ function cteTyping() {
       calculateVolume(parseFloat(volumeM3.value.replace(',', '.')), typeOfMerchandise)
     } else if (volumeM3 && (parseFloat(volumeM3.value.replace(',', '.')) === 0 || volumeM3.value === "")) {
       weightM3.value = "";
+      weightM3.style.display = "none";
     }
   }
 
   function calculateVolume(volumeM3, type) {
     switch (Number(type.value)) {
       case 0:
+        weightM3.style.display = "none";
         break;
       case 1:
+        weightM3.style.display = "";
         weightM3.value = (volumeM3 * 300).toFixed(3) + ' Kg'
         break;
       case 2:
+        weightM3.style.display = "";
         weightM3.value = (volumeM3 * 200).toFixed(3) + ' Kg'
         break;
       case 3:
+        weightM3.style.display = "";
         weightM3.value = (volumeM3 * 250).toFixed(3) + ' Kg'
         break;
       default:
+        weightM3.style.display = "";
         weightM3.value = (volumeM3 * 300).toFixed(3) + ' Kg'
         break;
     }
@@ -1151,37 +1157,50 @@ function cssFunctions() {
       break;
 
     case url.includes("/bin/ssw0024"):
+      // 004 - Digitação de CTRC Rodoviário
+      cteTyping();
+      insertStyles();
+      break;
+
+    case url.includes("/bin/ssw0011"):
+      // 520 - Complementar de ICMS/ISS e substituição de CTRC
       cteTyping();
       insertStyles();
       break;
 
     case url.includes("/bin/ssw1601"):
+      // 002 - Cotação de Fretes
       priceAgreement();
       insertStyles();
       break;
 
     case url.includes("/bin/ssw0767"):
+      // 007 - Autorização de CT-es pelo SEFAZ
       cteApproval();
       insertStyles();
       break;
 
     case url.includes("/bin/ssw0021"):
+      // 028 - Cadastro de Motoristas
       driverRegistration();
       insertStyles();
       break;
 
     case url.includes("/bin/ssw0019"):
+      // 026 - Cadastro de Veículos
       vehicleRegistration();
       driverRegistration();
       insertStyles();
       break;
 
     case url.includes("/bin/ssw0331"):
+      // 072 - Emissão de OSs e CTRBs de transferência 
       paymentIssuance();
       insertStyles();
       break;
 
     case url.includes("/bin/ssw0194"):
+      // 020 - Emissão de Manifesto Operacional
       paymentIssuance();
       insertStyles();
       break;
