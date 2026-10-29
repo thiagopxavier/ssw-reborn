@@ -623,12 +623,17 @@ function cteTyping() {
     `<input  value="" style="left:600px; top:288px; width:120px; display:none;" id="weightM3" class="nodata" readonly="">`
   );
 
+  document.body.insertAdjacentHTML("beforeend",
+    `<a href="#" style="left:670px; top:290px; width:120px text-decoration:none; display:none;" id="clearM3" class="imglnk">&nbsp;<b>×</b>&nbsp;</a>`
+  );
+
   const weightM3 = document.querySelector("#weightM3");
+  const clearM3 = document.querySelector("#clearM3");
+  const volumeM3 = document.querySelector("#id_m3");
 
   function verifyWeight() {
     const weight = document.querySelector("#id_peso_real")
     const agroupTitle = document.querySelector("#tituloprog > span")
-    const volumeM3 = document.querySelector("#id_m3");
     const typeOfMerchandise = document.querySelector("#id_mercadoria");
 
     if (weight && parseFloat(weight.value.replace(',', '.')) < 1 && parseFloat(weight.value.replace(',', '.')) != 0) {
@@ -649,6 +654,7 @@ function cteTyping() {
     } else if (volumeM3 && (parseFloat(volumeM3.value.replace(',', '.')) === 0 || volumeM3.value === "")) {
       weightM3.value = "";
       weightM3.style.display = "none";
+      clearM3.style.display = "none";
     }
   }
 
@@ -656,24 +662,50 @@ function cteTyping() {
     switch (Number(type.value)) {
       case 0:
         weightM3.style.display = "none";
+        clearM3.style.display = "none";
         break;
       case 1:
         weightM3.style.display = "";
+        clearM3.style.display = "";
         weightM3.value = (volumeM3 * 300).toFixed(3) + ' Kg'
         break;
       case 2:
         weightM3.style.display = "";
+        clearM3.style.display = "";
         weightM3.value = (volumeM3 * 200).toFixed(3) + ' Kg'
         break;
       case 3:
         weightM3.style.display = "";
+        clearM3.style.display = "";
         weightM3.value = (volumeM3 * 250).toFixed(3) + ' Kg'
         break;
       default:
         weightM3.style.display = "";
+        clearM3.style.display = "";
         weightM3.value = (volumeM3 * 300).toFixed(3) + ' Kg'
         break;
     }
+  }
+
+  if (clearM3) {
+    clearM3.addEventListener("click", (e) => {
+      clearWeightM3();
+    });
+  }
+
+  function clearWeightM3() {
+    const volumeTable = document.querySelector("#lnk_dim");
+    const volumeTableConfirmButton = document.querySelector("#id_dim_env");
+    const inputsTable = document.querySelectorAll('input[origin="volume"][name$="_altu"], input[origin="volume"][name$="_larg"], input[origin="volume"][name$="_comp"], input[origin="volume"][name$="_vezes"]');
+
+    volumeM3.value = "0,0000";
+    volumeM3.dispatchEvent(new Event("change", { bubbles: true }))
+    volumeTable.click();
+    inputsTable.forEach(input => {
+      input.value = "";
+      input.dispatchEvent(new Event("change", { bubbles: true }))
+    })
+    volumeTableConfirmButton.click();
   }
 
   function verifyState() {
