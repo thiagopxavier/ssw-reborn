@@ -728,8 +728,18 @@ function cteTyping() {
       if (typingTitle && typingTitle.textContent.includes("Digitação de CT-e Normal")) {
         const licensePlate = document.querySelector("#\\31 3");
         const shipperCity = shipperCountry.value.split("/")[0].trim();
+        const errorPanelMessage = document.querySelector("#errormsglabel > b > font")
 
-        if ((licensePlate && shipperCountry.value !== "" && consigneeCountry.value !== "" && licensePlate.value.toUpperCase() !== "ARMAZEM" && licensePlate.value.length === 7) &&
+        const dangerousWarnings = ["ICMS", "CFOP", "SEFAZ", "160"];
+
+        const message = errorPanelMessage?.textContent?.toUpperCase() || "";
+
+        if (dangerousWarnings.some(warning => message.includes(warning))) {
+          const resumeErrorPanelButton = document.querySelector("#-\\31");
+          resumeErrorPanelButton?.remove();
+        }
+
+        if ((licensePlate && shipperCountry.value !== "" && consigneeCNPJ.value !== "" && licensePlate.value.toUpperCase() !== "ARMAZEM" && licensePlate.value.length === 7) &&
           (!cities.includes(shipperCity) || !shipperCountry.value.includes('/ SP'))) {
           sendButton.style.pointerEvents = "none";
           sendButton.style.cursor = "default";
