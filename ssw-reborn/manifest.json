@@ -29,8 +29,9 @@
   ],
   "incognito": "split",
   "action": {
-    "default_popup": "index.html"
+    "default_popup": "popup/popup.html"
   },
+  "options_page": "options/options.html",
   "icons": {
     "16": "icons/ssw-reborn-16.png",
     "48": "icons/ssw-reborn-48.png",
