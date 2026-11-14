@@ -730,7 +730,7 @@ function cteTyping() {
         const shipperCity = shipperCountry.value.split("/")[0].trim();
         const errorPanelMessage = document.querySelector("#errormsglabel > b > font")
 
-        const dangerousWarnings = ["ICMS", "CFOP", "SEFAZ", "160"];
+        const dangerousWarnings = ["ICMS", "CFOP", "SEFAZ"];
 
         const message = errorPanelMessage?.textContent?.toUpperCase() || "";
 

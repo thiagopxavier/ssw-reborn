@@ -1,7 +1,7 @@
 {
   "name": "SSW Reborn",
   "description": "Custom CSS for SSW system",
-  "version": "1.15",
+  "version": "1.16",
   "content_scripts": [
     {
       "matches": [
@@ -40,7 +40,8 @@
   "web_accessible_resources": [
     {
       "resources": [
-        "icons/*"
+        "icons/*",
+        "data.json"
       ],
       "matches": [
         "<all_urls>"
