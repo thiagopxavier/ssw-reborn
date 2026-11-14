@@ -1161,6 +1161,91 @@ function paymentIssuance() {
   }
 }
 
+function manifestIssuance() {
+  function manifestsPage() {
+    return;
+  }
+
+  function addCargo() {
+    const manifestProvisionalPlate = document.querySelector("#frm > div:nth-child(4)");
+    const manifestDestination = document.querySelector("#frm > div:nth-child(6)");
+    const today = new Date().toISOString().split('T')[0];
+
+    const manifestData = {
+      plate: manifestProvisionalPlate ? manifestProvisionalPlate.textContent.trim().toUpperCase() : '',
+      destination: manifestDestination ? manifestDestination.textContent.trim().toUpperCase() : '',
+      date: today
+    };
+
+    const threeDaysAgo = new Date();
+    threeDaysAgo.setDate(threeDaysAgo.getDate() - 3);
+    const limitDate = threeDaysAgo.toISOString().split('T')[0];
+
+    chrome.storage.local.get(['manifest'], (result) => {
+      const manifestList = result.manifest || [];
+      let filteredList = manifestList.filter(item => {
+        const isNotExpired = item.date >= limitDate;
+        const isNotSamePlate = item.plate !== manifestProvisionalPlate.textContent.trim().toUpperCase();
+
+        return isNotExpired && isNotSamePlate;
+      });
+
+      filteredList.push(manifestData);
+      chrome.storage.local.set({ manifest: filteredList })
+    });
+  }
+
+  function toManifest() {
+    const plateRegex = /^[A-Z]{3}-?[0-9]{4}$|^[A-Z]{3}-?[0-9][A-Z][0-9]{2}$/i;
+    const manifestProvisionalPlate = document.querySelector("#frm > div:nth-child(4)");
+    const manifestDestination = document.querySelector("#id_destino_unico");
+    const manifestPlate = document.querySelector("#id_cavalo");
+
+    chrome.storage.local.get(['manifest'], (result) => {
+      const manifestList = result.manifest || [];
+      const manifestData = manifestList.find(manifest => manifest.plate === manifestProvisionalPlate.textContent.trim().toUpperCase());
+
+      const plateToTest = manifestData.plate;
+
+      manifestDestination.value = manifestData ? manifestData.destination : '';
+      manifestDestination.dispatchEvent(new Event("change", { bubbles: true }));
+
+      manifestPlate.value = plateRegex.test(plateToTest) ? plateToTest : '';
+      manifestPlate.dispatchEvent(new Event("change", { bubbles: true }));
+    });
+  }
+
+  let lastPage = null;
+
+  function renderVerifyManifestData() {
+    const pageDescription = document.querySelector("#telaprog");
+    const description = pageDescription.textContent.trim();
+    const pageNumber = description.split(/\s+/)[0].replace(/^ssw/i, '');
+
+    if (pageNumber === lastPage) return;
+    lastPage = pageNumber;
+
+
+    if (pageNumber === '0194.25') {
+      manifestsPage();
+    } else if (pageNumber === '0194.14') {
+      addCargo();
+    } else if (pageNumber === '0194.43') {
+      toManifest();
+    }
+  };
+
+  const observer = new MutationObserver(() => {
+    renderVerifyManifestData();
+  });
+
+  observer.observe(document.body, {
+    childList: true,
+    subtree: true
+  });
+  renderVerifyManifestData();
+}
+
 function warning(message, command) {
   document.body.insertAdjacentHTML("beforeend", `
     <div id="errormsg" style="text-align: left; overflow: visible; left: 272px; top: 208px; height: 139px; width: 416px; z-index: 1147483648; visibility: visible;" class="sswrebornerrorpanel">
@@ -1244,6 +1329,7 @@ function cssFunctions() {
     case url.includes("/bin/ssw0194"):
       // 020 - Emissão de Manifesto Operacional
       paymentIssuance();
+      manifestIssuance();
       insertStyles();
       break;
 
